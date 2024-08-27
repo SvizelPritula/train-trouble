@@ -1,0 +1,3 @@
+[workspace]
+members = ["train-trouble-engine", "train-trouble"]
+resolver = "2"

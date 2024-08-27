@@ -1,10 +1,18 @@
+use game_loop::run_loop;
 use serde::{Deserialize, Serialize};
+use server::run_server;
+use state::StateHandle;
 use std::hash::Hash;
+use tokio::try_join;
 
-pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default {
-    type CHANNEL: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Hash;
-    type VIEW: Serialize + for<'de> Deserialize<'de> + Clone + Eq;
-    type ACTION: Serialize + for<'de> Deserialize<'de> + Clone + Eq;
+mod game_loop;
+mod server;
+mod state;
+
+pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default + Send {
+    type CHANNEL: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Hash + Send + Sync;
+    type VIEW: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
+    type ACTION: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
 
     const TICK_RATE: u64;
 
@@ -18,4 +26,16 @@ pub enum ActionResult {
     Ok,
     Error(Box<str>),
     Misdirected,
+}
+
+#[tokio::main]
+pub async fn run<G: Game + 'static>() {
+    let state_for_loop = StateHandle::<G>::new();
+    let state_for_server = state_for_loop.clone();
+
+    try_join!(
+        tokio::spawn(async { run_loop(state_for_loop).await }),
+        tokio::spawn(async { run_server(state_for_server).await }),
+    )
+    .unwrap();
 }

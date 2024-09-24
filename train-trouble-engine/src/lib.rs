@@ -1,10 +1,11 @@
 use game_loop::run_loop;
 use serde::{Deserialize, Serialize};
 use server::run_server;
-use state::StateHandle;
+use state::State;
 use std::hash::Hash;
 use tokio::try_join;
 
+mod channel_map;
 mod game_loop;
 mod server;
 mod state;
@@ -30,7 +31,7 @@ pub enum ActionResult {
 
 #[tokio::main]
 pub async fn run<G: Game + 'static>() {
-    let state_for_loop = StateHandle::<G>::new();
+    let state_for_loop = State::<G>::new();
     let state_for_server = state_for_loop.clone();
 
     try_join!(

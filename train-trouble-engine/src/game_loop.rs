@@ -2,9 +2,9 @@ use std::time::Duration;
 
 use tokio::time::interval;
 
-use crate::{state::StateHandle, Game};
+use crate::{state::State, Game};
 
-pub async fn run_loop<G: Game>(state: StateHandle<G>) {
+pub async fn run_loop<G: Game>(state: State<G>) {
     let mut game = G::default();
 
     let period = Duration::from_secs(1) / G::TICK_RATE.try_into().unwrap();
@@ -15,9 +15,9 @@ pub async fn run_loop<G: Game>(state: StateHandle<G>) {
         game.tick();
 
         {
-            let guard = state.lock();
+            let guard = state.subscriptions.subscriptions();
 
-            for (channel, sender) in guard.subscriptions() {
+            for (channel, sender) in guard.iter() {
                 let view = game.view(channel.clone());
 
                 sender.send_if_modified(|value| {

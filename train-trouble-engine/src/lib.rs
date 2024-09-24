@@ -1,16 +1,19 @@
+use anyhow::{Error, Result};
 use game_loop::run_loop;
 use serde::{Deserialize, Serialize};
 use server::run_server;
-use state::State;
-use std::hash::Hash;
+use state::ServerState;
+use std::{future::Future, hash::Hash};
 use tokio::try_join;
+use tracing::{error, level_filters::LevelFilter};
+use tracing_subscriber::{fmt, layer::SubscriberExt, registry, util::SubscriberInitExt, Layer};
 
 mod channel_map;
 mod game_loop;
 mod server;
 mod state;
 
-pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default + Send {
+pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default + Send + 'static {
     type CHANNEL: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Hash + Send + Sync;
     type VIEW: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
     type ACTION: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
@@ -30,13 +33,30 @@ pub enum ActionResult {
 }
 
 #[tokio::main]
-pub async fn run<G: Game + 'static>() {
-    let state_for_loop = State::<G>::new();
+pub async fn run<G: Game + 'static>() -> Result<()> {
+    let stdout = fmt::layer().with_filter(LevelFilter::INFO);
+    registry().with(stdout).init();
+
+    let state_for_loop = ServerState::<G>::new();
     let state_for_server = state_for_loop.clone();
 
     try_join!(
-        tokio::spawn(async { run_loop(state_for_loop).await }),
-        tokio::spawn(async { run_server(state_for_server).await }),
+        spawn_anyhow(|| run_loop(state_for_loop)),
+        spawn_anyhow(|| run_server(state_for_server)),
     )
-    .unwrap();
+    .inspect_err(|error| {
+        error!("Failed to run server: {error}");
+    })
+    .map(|_| ())
+}
+
+async fn spawn_anyhow<F, P, R>(f: F) -> Result<R>
+where
+    F: FnOnce() -> P,
+    P: Future<Output = Result<R>> + Send + 'static,
+    R: Send + 'static,
+{
+    tokio::spawn(f())
+        .await
+        .unwrap_or_else(|e| Err(Error::from(e)))
 }

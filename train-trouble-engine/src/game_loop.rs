@@ -1,10 +1,11 @@
 use std::time::Duration;
 
+use anyhow::Result;
 use tokio::time::interval;
 
-use crate::{state::State, Game};
+use crate::{state::ServerState, Game};
 
-pub async fn run_loop<G: Game>(state: State<G>) {
+pub async fn run_loop<G: Game>(state: ServerState<G>) -> Result<()> {
     let mut game = G::default();
 
     let period = Duration::from_secs(1) / G::TICK_RATE.try_into().unwrap();

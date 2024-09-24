@@ -1,13 +1,13 @@
 use crate::{channel_map::ChannelMap, Game};
 
 #[derive(Clone)]
-pub struct State<G: Game> {
+pub struct ServerState<G: Game> {
     pub subscriptions: ChannelMap<G>,
 }
 
-impl<G: Game> State<G> {
-    pub fn new() -> State<G> {
-        State {
+impl<G: Game> ServerState<G> {
+    pub fn new() -> ServerState<G> {
+        ServerState {
             subscriptions: ChannelMap::new(),
         }
     }

@@ -1,5 +1,7 @@
+use std::process::Termination;
+
 use serde::{Deserialize, Serialize};
-use train_trouble_engine::{ActionResult, Game};
+use train_trouble_engine::{run, ActionResult, Game};
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 struct SampleGame {
@@ -70,6 +72,6 @@ impl Game for SampleGame {
     }
 }
 
-fn main() {
-    println!("Hello, world!");
+fn main() -> impl Termination {
+    run::<SampleGame>()
 }

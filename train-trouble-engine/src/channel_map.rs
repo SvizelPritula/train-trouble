@@ -1,6 +1,6 @@
 use std::{collections::HashMap, ops::Deref, sync::Arc};
 
-use parking_lot::{Mutex, MutexGuard};
+use parking_lot::Mutex;
 use tokio::sync::watch;
 
 use crate::Game;
@@ -51,8 +51,8 @@ impl<G: Game> Subscriptions<G> {
 }
 
 impl<G: Game> ViewSubscription<G> {
-    pub fn inner(&self) -> &watch::Receiver<Option<G::VIEW>> {
-        &self.receiver
+    pub fn inner(&mut self) -> &mut watch::Receiver<Option<G::VIEW>> {
+        &mut self.receiver
     }
 }
 

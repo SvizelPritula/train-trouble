@@ -40,7 +40,6 @@ pub async fn run_server<G: Game>(state: ServerState<G>) -> Result<()> {
     let listener = TcpListener::bind(address).await?;
 
     info!(%address, "Server started");
-
     axum::serve(listener, app.into_make_service()).await?;
 
     Ok(())

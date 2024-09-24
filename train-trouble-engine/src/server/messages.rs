@@ -22,6 +22,4 @@ pub enum OutgoingMessage<G: Game> {
 pub enum SocketError {
     MalformedMessage,
     BadLogin,
-    Misdirected,
-    Custom(Box<str>)
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { type Action, type Channel, type View } from "../lib/state";
-  import { connect } from "../engine";
+  import { connect } from "train-trouble-engine-client";
 
   export let channel: Channel;
 

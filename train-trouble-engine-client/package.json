@@ -1,0 +1,12 @@
+{
+  "name": "train-trouble-engine-client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@tsconfig/svelte": "^5.0.4",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3"
+  }
+}

@@ -3,7 +3,10 @@ use std::time::Duration;
 use anyhow::Result;
 use tokio::time::interval;
 
-use crate::{state::ServerState, Game};
+use crate::{
+    state::{Action, ServerState},
+    Game,
+};
 
 pub async fn run_loop<G: Game>(state: ServerState<G>) -> Result<()> {
     let mut game = G::default();
@@ -12,6 +15,18 @@ pub async fn run_loop<G: Game>(state: ServerState<G>) -> Result<()> {
     let mut interval = interval(period);
 
     loop {
+        let actions = state.actions.take_actions();
+
+        for Action {
+            channel,
+            action,
+            sender,
+        } in actions
+        {
+            let result = game.act(channel, action);
+            let _ = sender.send(result);
+        }
+
         interval.tick().await;
         game.tick();
 

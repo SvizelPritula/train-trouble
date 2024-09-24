@@ -25,7 +25,7 @@ pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default + Send +
     fn act(&mut self, channel: Self::CHANNEL, action: Self::ACTION) -> ActionResult;
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ActionResult {
     Ok,
     Error(Box<str>),
@@ -37,7 +37,7 @@ pub async fn run<G: Game + 'static>() -> Result<()> {
     let stdout = fmt::layer().with_filter(LevelFilter::INFO);
     registry().with(stdout).init();
 
-    let state_for_loop = ServerState::<G>::new();
+    let state_for_loop = ServerState::<G>::default();
     let state_for_server = state_for_loop.clone();
 
     try_join!(

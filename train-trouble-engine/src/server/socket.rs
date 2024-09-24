@@ -12,7 +12,7 @@ use tokio::select;
 use tracing::warn;
 
 use super::messages::{IncomingMessage, OutgoingMessage, SocketError};
-use crate::{state::ServerState, Game};
+use crate::{state::ServerState, ActionResult, Game};
 
 pub struct Socket<G>(WebSocket, PhantomData<G>);
 
@@ -55,7 +55,7 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: WebSocket) -> Result<()> {
         Some(Ok(_)) => {
             socket
                 .send(OutgoingMessage::Error {
-                    error: SocketError::BadLogin,
+                    error: SocketError::NoLogin,
                 })
                 .await?;
 
@@ -68,7 +68,7 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: WebSocket) -> Result<()> {
         None => return Ok(()),
     };
 
-    let mut subscription = state.subscriptions.subscribe(channel);
+    let mut subscription = state.subscriptions.subscribe(channel.clone());
 
     loop {
         select! {
@@ -77,8 +77,20 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: WebSocket) -> Result<()> {
                     socket.send(OutgoingMessage::Ping).await?;
                 }
                 Some(Ok(IncomingMessage::Login { channel: _ })) => {
-                    socket.send(OutgoingMessage::Error { error: SocketError::BadLogin }).await?;
+                    socket.send(OutgoingMessage::Error { error: SocketError::DoubleLogin }).await?;
                     break;
+                }
+                Some(Ok(IncomingMessage::Submit{ id, action })) => {
+                    let result = state.actions.submit(channel.clone(), action).await?;
+
+                    match result {
+                        ActionResult::Ok => socket.send(OutgoingMessage::Confirm { id, error: None }).await?,
+                        ActionResult::Error(error) => socket.send(OutgoingMessage::Confirm { id, error: Some(error) }).await?,
+                        ActionResult::Misdirected => {
+                            socket.send(OutgoingMessage::Error { error: SocketError::MisdirectedAction }).await?;
+                            break;
+                        },
+                    };
                 }
 
                 Some(Err(error)) => {

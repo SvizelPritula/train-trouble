@@ -1,15 +1,23 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { type Channel, type View } from "../lib/state";
-  import { connect } from "../engine";
+  import { type Channel } from "../lib/state";
+  import Simulator from "./Simulator.svelte";
 
-  let state: View | null = null;
+  let channel: Channel = "view";
+  let channelName: string = channel;
 
-  onMount(() => {
-    let { stop } = connect<Channel, View>("view", (v) => (state = v));
-
-    return stop;
-  });
+  function submit() {
+    channel = channelName as Channel;
+  }
 </script>
 
-<main><pre>{JSON.stringify(state, null, 4)}</pre></main>
+<main>
+  <form on:submit|preventDefault={submit}>
+    <input bind:value={channelName} />
+
+    <div><button type="submit">Submit</button></div>
+  </form>
+
+  {#key channel}
+    <Simulator {channel} />
+  {/key}
+</main>

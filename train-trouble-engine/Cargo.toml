@@ -20,3 +20,4 @@ tower = "0.5.1"
 tower-http = { version = "0.6.1", features = ["trace", "set-header"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["parking_lot"] }
+uuid = { version = "1.10.0", features = ["serde"] }

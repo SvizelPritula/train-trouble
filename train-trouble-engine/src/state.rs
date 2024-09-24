@@ -1,14 +1,44 @@
-use crate::{channel_map::ChannelMap, Game};
+use std::{mem::take, sync::Arc};
 
-#[derive(Clone)]
+use parking_lot::Mutex;
+use tokio::sync::oneshot;
+
+use crate::{channel_map::ChannelMap, ActionResult, Game};
+
+#[derive(Clone, Default)]
 pub struct ServerState<G: Game> {
     pub subscriptions: ChannelMap<G>,
+    pub actions: Actions<G>,
 }
 
-impl<G: Game> ServerState<G> {
-    pub fn new() -> ServerState<G> {
-        ServerState {
-            subscriptions: ChannelMap::new(),
-        }
+pub struct Action<G: Game> {
+    pub channel: G::CHANNEL,
+    pub action: G::ACTION,
+    pub sender: oneshot::Sender<ActionResult>,
+}
+
+#[derive(Clone, Default)]
+pub struct Actions<G: Game>(Arc<Mutex<Vec<Action<G>>>>);
+
+impl<G: Game> Actions<G> {
+    pub fn submit(
+        &self,
+        channel: G::CHANNEL,
+        action: G::ACTION,
+    ) -> oneshot::Receiver<ActionResult> {
+        let (sender, receiver) = oneshot::channel();
+        let mut guard = self.0.lock();
+
+        guard.push(Action {
+            channel,
+            action,
+            sender,
+        });
+
+        receiver
+    }
+
+    pub fn take_actions(&self) -> Vec<Action<G>> {
+        take(self.0.lock().as_mut())
     }
 }

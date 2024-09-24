@@ -1,17 +1,33 @@
-import { writable, type Readable, type Writable } from "svelte/store";
 import { reconnect } from "./reconnect";
 import { createWatchdog } from "./watchdog";
 
-export interface Connection {
+export interface Connection<Action> {
   stop(): void,
+  submit(action: Action): Promise<void>,
 }
 
 const path = "/api/sync";
 
-export function connect<Channel, View>(channel: Channel, onNewView: (view: View) => void): Connection {
+export function connect<Channel, View, Action>(channel: Channel, onNewView: (view: View) => void): Connection<Action> {
+  let pendingActions: Map<string, [() => void, (reason: any) => void]> = new Map();
+  let currentSocket: WebSocket | null = null;
+
   function processMessage(message: IncomingMessage<View>) {
     if (message.type == "state") {
       onNewView(message.state);
+    } else if (message.type == "confirm") {
+      let callbacks = pendingActions.get(message.id);
+      pendingActions.delete(message.id);
+
+      if (callbacks == null)
+        return;
+
+      let [resolve, reject] = callbacks;
+
+      if (message.error == null)
+        resolve();
+      else
+        reject(new SubmitError("rejected", message.error))
     } else if (message.type == "error") {
       console.error(`Server reported an error: ${message.error}`);
     }
@@ -19,13 +35,14 @@ export function connect<Channel, View>(channel: Channel, onNewView: (view: View)
 
   let stop = reconnect(retry => {
     let socket = new WebSocket(new URL(path, window.location.href));
+    currentSocket = socket;
 
     let watchdog = createWatchdog(() => {
-      socket.send(JSON.stringify({ type: "ping" } as OutgoingMessage<Channel>));
+      socket.send(JSON.stringify({ type: "ping" } as OutgoingMessage<Channel, Action>));
     }, retry);
 
     socket.addEventListener("open", () => {
-      socket.send(JSON.stringify({ type: "login", channel } as OutgoingMessage<Channel>));
+      socket.send(JSON.stringify({ type: "login", channel } as OutgoingMessage<Channel, Action>));
     });
 
     socket.addEventListener("message", event => {
@@ -39,17 +56,41 @@ export function connect<Channel, View>(channel: Channel, onNewView: (view: View)
     return () => {
       socket.close();
       watchdog.stop();
+      currentSocket = null;
+
+      for (var [resolve, reject] of pendingActions.values()) {
+        reject(new SubmitError("connection_broken"));
+      }
+
+      pendingActions = new Map();
     };
   });
 
-  return { stop };
+  function submit(action: Action): Promise<void> {
+    return new Promise((resolve, reject) => {
+      let id = crypto.randomUUID();
+
+      if (currentSocket == null)
+        return reject(new SubmitError("not_connected"));
+
+      currentSocket.send(JSON.stringify({ type: "submit", id, action } as OutgoingMessage<Channel, Action>));
+
+      pendingActions.set(id, [resolve, reject]);
+    });
+  }
+
+  return { stop, submit };
 }
 
-type OutgoingMessage<Channel> = {
+type OutgoingMessage<Channel, Action> = {
   type: "ping"
 } | {
   type: "login",
   channel: Channel
+} | {
+  type: "submit",
+  id: string,
+  action: Action
 };
 
 type IncomingMessage<View> = {
@@ -58,6 +99,22 @@ type IncomingMessage<View> = {
   type: "state",
   state: View
 } | {
+  type: "confirm",
+  id: string,
+  error: string | null
+} | {
   type: "error",
   error: string
 };
+
+type SubmitErrorReason = "not_connected" | "connection_broken" | "rejected";
+
+class SubmitError extends Error {
+  reason: string;
+
+  constructor(reason: SubmitErrorReason, message?: string) {
+    super(message ?? reason);
+    this.reason = reason;
+    this.name = "SubmitError";
+  }
+}

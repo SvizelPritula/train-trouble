@@ -8,3 +8,5 @@ export type View = {
 } | {
     type: "reset"
 };
+
+export type Action = "increment" | "decrement" | "reset";

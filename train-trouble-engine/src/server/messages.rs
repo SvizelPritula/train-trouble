@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 use crate::Game;
 
@@ -7,6 +8,7 @@ use crate::Game;
 pub enum IncomingMessage<G: Game> {
     Ping,
     Login { channel: G::CHANNEL },
+    Submit { id: Uuid, action: G::ACTION },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -14,6 +16,7 @@ pub enum IncomingMessage<G: Game> {
 pub enum OutgoingMessage<G: Game> {
     Ping,
     State { state: G::VIEW },
+    Confirm { id: Uuid, error: Option<Box<str>> },
     Error { error: SocketError },
 }
 
@@ -21,5 +24,7 @@ pub enum OutgoingMessage<G: Game> {
 #[serde(rename_all = "kebab-case")]
 pub enum SocketError {
     MalformedMessage,
-    BadLogin,
+    NoLogin,
+    DoubleLogin,
+    MisdirectedAction
 }

@@ -56,6 +56,12 @@ impl<G: Game> ViewSubscription<G> {
     }
 }
 
+impl<G: Game> Default for ChannelMap<G> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<G: Game> Drop for ViewSubscription<G> {
     fn drop(&mut self) {
         let mut guard = self.map.0.lock();

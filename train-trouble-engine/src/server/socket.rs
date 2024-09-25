@@ -69,13 +69,14 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: &mut WebSocket) -> Result<(
     };
 
     let mut subscription = state.subscriptions.subscribe(channel.clone());
+    subscription.inner().mark_changed();
 
     loop {
         select! {
             message = socket.recv() => match message? {
                 Some(Ok(IncomingMessage::Ping)) => socket.send(OutgoingMessage::Ping).await?,
                 Some(Ok(IncomingMessage::Login { channel: _ })) => socket_error!(SocketError::DoubleLogin),
-                Some(Ok(IncomingMessage::Submit{ id, action })) => {
+                Some(Ok(IncomingMessage::Submit { id, action })) => {
                     let result = state.actions.submit(channel.clone(), action).await?;
 
                     match result {

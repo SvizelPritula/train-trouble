@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+enum-map = { version = "2.7.3", features = ["serde"] }
 serde = { version = "1.0.210", features = ["derive"] }
 train-trouble-engine = { version = "0.1.0", path = "../train-trouble-engine" }

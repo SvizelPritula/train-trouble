@@ -1,38 +1,30 @@
 use std::process::Termination;
 
+use railroad::RailwayState;
 use serde::{Deserialize, Serialize};
 use train_trouble_engine::{run, ActionResult, Game};
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-struct SampleGame {
-    value: u64,
-}
+mod railroad;
+mod tri_state;
 
-#[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-enum Channel {
-    View,
-    Change,
-    Reset,
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+struct TrainToubleGame {
+    railway: RailwayState,
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
-enum View {
-    Value { value: u64 },
-    Change,
-    Reset,
-}
+enum Channel {}
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-enum Action {
-    Increment,
-    Decrement,
-    Reset,
-}
+#[serde(rename_all = "kebab-case", tag = "type")]
+enum View {}
 
-impl Game for SampleGame {
+#[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case", tag = "type")]
+enum Action {}
+
+impl Game for TrainToubleGame {
     type CHANNEL = Channel;
     type VIEW = View;
     type ACTION = Action;
@@ -40,38 +32,20 @@ impl Game for SampleGame {
     const TICK_RATE: u64 = 20;
 
     fn tick(&mut self) {
-        self.value += 1;
+        self.railway.tick();
     }
 
     fn view(&mut self, channel: Self::CHANNEL) -> Self::VIEW {
-        match channel {
-            Channel::View => View::Value {
-                value: self.value / Self::TICK_RATE,
-            },
-            Channel::Change => View::Change,
-            Channel::Reset => View::Reset,
-        }
+        match channel {}
     }
 
     fn act(&mut self, channel: Self::CHANNEL, action: Self::ACTION) -> ActionResult {
         match (channel, action) {
-            (Channel::Change, Action::Increment) => {
-                self.value = self.value.saturating_add(10 * Self::TICK_RATE);
-                ActionResult::Ok
-            }
-            (Channel::Change, Action::Decrement) => {
-                self.value = self.value.saturating_sub(10 * Self::TICK_RATE);
-                ActionResult::Ok
-            }
-            (Channel::Reset, Action::Reset) => {
-                self.value = 0;
-                ActionResult::Ok
-            }
             _ => ActionResult::Misdirected,
         }
     }
 }
 
 fn main() -> impl Termination {
-    run::<SampleGame>()
+    run::<TrainToubleGame>()
 }

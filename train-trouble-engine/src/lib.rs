@@ -47,7 +47,7 @@ pub async fn run<G: Game + 'static>() -> Result<()> {
     .inspect_err(|error| {
         error!("Failed to run server: {error}");
     })
-    .map(|_| ())
+    .map(|((), ())| ())
 }
 
 async fn spawn_anyhow<F, P, R>(f: F) -> Result<R>

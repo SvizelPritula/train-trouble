@@ -6,6 +6,7 @@ use train_trouble_engine::{run, ActionResult, Game};
 
 mod railroad;
 mod tri_state;
+mod zones;
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 struct TrainToubleGame {

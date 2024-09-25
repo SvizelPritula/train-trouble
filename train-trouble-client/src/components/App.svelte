@@ -2,11 +2,11 @@
   import { type Channel } from "../lib/state";
   import Simulator from "./Simulator.svelte";
 
-  let channel: Channel = "view";
-  let channelName: string = channel;
+  let channel: Channel = { type: "map" };
+  let channelName: string = JSON.stringify(channel);
 
   function submit() {
-    channel = channelName as Channel;
+    channel = JSON.parse(channelName) as Channel;
   }
 </script>
 

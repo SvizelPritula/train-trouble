@@ -9,14 +9,14 @@ use axum::{
     response::Response,
 };
 use tokio::select;
-use tracing::warn;
+use tracing::info;
 
 use super::messages::{IncomingMessage, OutgoingMessage, SocketError};
 use crate::{state::ServerState, ActionResult, Game};
 
-pub struct Socket<G>(WebSocket, PhantomData<G>);
+pub struct Socket<'a, G>(&'a mut WebSocket, PhantomData<G>);
 
-impl<G: Game> Socket<G> {
+impl<'a, G: Game> Socket<'a, G> {
     async fn send(&mut self, message: OutgoingMessage<G>) -> Result<()> {
         let payload = serde_json::to_string(&message)?;
         self.0.send(Message::Text(payload)).await?;
@@ -47,24 +47,24 @@ impl<G: Game> Socket<G> {
     }
 }
 
-pub async fn run<G: Game>(state: ServerState<G>, ws: WebSocket) -> Result<()> {
+pub async fn run<G: Game>(state: ServerState<G>, ws: &mut WebSocket) -> Result<()> {
     let mut socket: Socket<G> = Socket(ws, PhantomData::default());
+
+    macro_rules! socket_error {
+        ($error: expr) => {{
+            let error = $error;
+
+            info!(?error, "Client made a protocol error");
+            socket.send(OutgoingMessage::Error { error }).await?;
+
+            return Ok(());
+        }};
+    }
 
     let channel = match socket.recv().await? {
         Some(Ok(IncomingMessage::Login { channel })) => channel,
-        Some(Ok(_)) => {
-            socket
-                .send(OutgoingMessage::Error {
-                    error: SocketError::NoLogin,
-                })
-                .await?;
-
-            return Ok(());
-        }
-        Some(Err(error)) => {
-            socket.send(OutgoingMessage::Error { error }).await?;
-            return Ok(());
-        }
+        Some(Ok(_)) => socket_error!(SocketError::NoLogin),
+        Some(Err(error)) => socket_error!(error),
         None => return Ok(()),
     };
 
@@ -73,30 +73,19 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: WebSocket) -> Result<()> {
     loop {
         select! {
             message = socket.recv() => match message? {
-                Some(Ok(IncomingMessage::Ping)) => {
-                    socket.send(OutgoingMessage::Ping).await?;
-                }
-                Some(Ok(IncomingMessage::Login { channel: _ })) => {
-                    socket.send(OutgoingMessage::Error { error: SocketError::DoubleLogin }).await?;
-                    break;
-                }
+                Some(Ok(IncomingMessage::Ping)) => socket.send(OutgoingMessage::Ping).await?,
+                Some(Ok(IncomingMessage::Login { channel: _ })) => socket_error!(SocketError::DoubleLogin),
                 Some(Ok(IncomingMessage::Submit{ id, action })) => {
                     let result = state.actions.submit(channel.clone(), action).await?;
 
                     match result {
                         ActionResult::Ok => socket.send(OutgoingMessage::Confirm { id, error: None }).await?,
                         ActionResult::Error(error) => socket.send(OutgoingMessage::Confirm { id, error: Some(error) }).await?,
-                        ActionResult::Misdirected => {
-                            socket.send(OutgoingMessage::Error { error: SocketError::MisdirectedAction }).await?;
-                            break;
-                        },
+                        ActionResult::Misdirected => socket_error!(SocketError::MisdirectedAction),
                     };
                 }
 
-                Some(Err(error)) => {
-                    socket.send(OutgoingMessage::Error { error }).await?;
-                    break;
-                }
+                Some(Err(error)) => socket_error!(error),
                 None => break,
             },
 
@@ -119,11 +108,13 @@ pub async fn socket<G: Game>(
     ws: WebSocketUpgrade,
 ) -> Response {
     ws.on_failed_upgrade(|error| {
-        warn!("WebSocket upgrade failed: {error}");
+        info!("WebSocket upgrade failed: {error}");
     })
-    .on_upgrade(|ws| async {
-        let _ = run(state, ws)
+    .on_upgrade(|mut ws| async move {
+        let _ = run(state, &mut ws)
             .await
-            .inspect_err(|error| warn!("WebSocket closed due to error: {error}"));
+            .inspect_err(|error| info!("WebSocket closed due to error: {error}"));
+
+        let _ = ws.close().await;
     })
 }

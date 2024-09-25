@@ -53,7 +53,7 @@ impl ZoneId {
             .copied()
             .map(|id| SwitchView {
                 id,
-                direction: railway.switches[id].stable_direction(),
+                direction: railway.switches[id].direction.tri_state(),
             })
             .collect()
     }

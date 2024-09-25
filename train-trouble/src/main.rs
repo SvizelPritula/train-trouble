@@ -68,7 +68,7 @@ impl Game for TrainToubleGame {
         match (channel, action) {
             (Channel::Zone { zone }, Action::Switch { id, direction }) => {
                 if zone.info().switches.contains(&id) {
-                    self.railway.switches[id].set_direction(direction);
+                    self.railway.switches[id].direction.set(direction);
                     ActionResult::Ok
                 } else {
                     ActionResult::Misdirected

@@ -1,15 +1,20 @@
+use std::ops::Not;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
-pub struct TriStateController {
-    target: bool,
+pub struct TriStateController<T> {
+    target: T,
     counter: u8,
 }
 
-impl TriStateController {
+impl<T> TriStateController<T>
+where
+    T: Eq + Not<Output = T> + Copy,
+{
     const DELAY: u8 = 30;
 
-    pub fn set(&mut self, value: bool) {
+    pub fn set(&mut self, value: T) {
         if value != self.target {
             self.target = value;
             self.counter = Self::DELAY;
@@ -20,7 +25,7 @@ impl TriStateController {
         self.counter = self.counter.saturating_sub(1);
     }
 
-    pub fn state(&self) -> bool {
+    pub fn state(&self) -> T {
         if self.counter == 0 {
             self.target
         } else {
@@ -28,7 +33,7 @@ impl TriStateController {
         }
     }
 
-    pub fn tri_state(&self) -> Option<bool> {
+    pub fn tri_state(&self) -> Option<T> {
         if self.counter == 0 {
             Some(self.target)
         } else {

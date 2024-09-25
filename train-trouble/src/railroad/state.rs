@@ -29,7 +29,7 @@ impl RailwayState {
                         switch,
                         left,
                         right,
-                    } => Some(match self.switches[switch].direction() {
+                    } => Some(match self.switches[switch].direction.state() {
                         Direction::Left => left,
                         Direction::Right => right,
                     }),
@@ -64,7 +64,7 @@ impl RailwayState {
     }
 
     pub fn tick(&mut self) {
-        self.switches.values_mut().for_each(|s| s.is_right.tick());
+        self.switches.values_mut().for_each(|s| s.direction.tick());
         self.signals.values_mut().for_each(|s| s.is_clear.tick());
 
         self.move_trains();

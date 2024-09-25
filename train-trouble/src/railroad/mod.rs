@@ -1,3 +1,5 @@
+use std::ops::Not;
+
 use crate::tri_state::TriStateController;
 
 pub use map::{SignalId, SwitchId, TrackId};
@@ -31,19 +33,20 @@ pub struct TrackInfo {
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub struct SwitchState {
-    pub is_right: TriStateController,
+    pub direction: TriStateController<Direction>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum Direction {
+    #[default]
     Left,
     Right,
 }
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub struct SignalState {
-    pub is_clear: TriStateController,
+    pub is_clear: TriStateController<bool>,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
@@ -52,23 +55,13 @@ pub struct Location {
     remaining_length: u64,
 }
 
-impl SwitchState {
-    pub fn direction(&self) -> Direction {
-        match self.is_right.state() {
-            true => Direction::Right,
-            false => Direction::Left,
-        }
-    }
+impl Not for Direction {
+    type Output = Direction;
 
-    pub fn stable_direction(&self) -> Option<Direction> {
-        match self.is_right.tri_state() {
-            Some(true) => Some(Direction::Right),
-            Some(false) => Some(Direction::Left),
-            None => None,
+    fn not(self) -> Self::Output {
+        match self {
+            Direction::Left => Direction::Right,
+            Direction::Right => Direction::Left,
         }
-    }
-
-    pub fn set_direction(&mut self, direction: Direction) {
-        self.is_right.set(direction == Direction::Right);
     }
 }

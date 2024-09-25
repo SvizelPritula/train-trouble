@@ -1,7 +1,7 @@
 use std::process::Termination;
 
 use enum_map::EnumMap;
-use railroad::{RailwayState, TrackId};
+use railroad::{Direction, RailwayState, SignalId, SwitchId, TrackId};
 use serde::{Deserialize, Serialize};
 use train_trouble_engine::{run, ActionResult, Game};
 use zones::{SignalView, SwitchView, ZoneId};
@@ -36,7 +36,10 @@ enum View {
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
-enum Action {}
+enum Action {
+    Switch { id: SwitchId, direction: Direction },
+    Signal { id: SignalId, clear: bool },
+}
 
 impl Game for TrainToubleGame {
     type CHANNEL = Channel;
@@ -63,6 +66,22 @@ impl Game for TrainToubleGame {
 
     fn act(&mut self, channel: Self::CHANNEL, action: Self::ACTION) -> ActionResult {
         match (channel, action) {
+            (Channel::Zone { zone }, Action::Switch { id, direction }) => {
+                if zone.info().switches.contains(&id) {
+                    self.railway.switches[id].set_direction(direction);
+                    ActionResult::Ok
+                } else {
+                    ActionResult::Misdirected
+                }
+            }
+            (Channel::Zone { zone }, Action::Signal { id, clear }) => {
+                if zone.info().signals.contains(&id) {
+                    self.railway.signals[id].is_clear.set(clear);
+                    ActionResult::Ok
+                } else {
+                    ActionResult::Misdirected
+                }
+            }
             _ => ActionResult::Misdirected,
         }
     }

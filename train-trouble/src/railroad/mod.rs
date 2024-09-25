@@ -67,4 +67,8 @@ impl SwitchState {
             None => None,
         }
     }
+
+    pub fn set_direction(&mut self, direction: Direction) {
+        self.is_right.set(direction == Direction::Right);
+    }
 }

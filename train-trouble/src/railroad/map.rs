@@ -167,7 +167,7 @@ pub enum TrainId {
 impl TrainId {
     pub fn start(self) -> TrackId {
         match self {
-            TrainId::Main => TrackId::BottomStop,
+            TrainId::Main => TrackId::MainStop,
         }
     }
 }

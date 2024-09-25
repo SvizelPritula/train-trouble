@@ -1,7 +1,10 @@
 use enum_map::EnumMap;
 use serde::{Deserialize, Serialize};
 
-use super::{map::TrainId, Location, SignalId, SignalState, SwitchId, SwitchState, TrackEnding};
+use super::{
+    map::TrainId, Direction, Location, SignalId, SignalState, SwitchId, SwitchState, TrackEnding,
+    TrackId,
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RailwayState {
@@ -26,10 +29,9 @@ impl RailwayState {
                         switch,
                         left,
                         right,
-                    } => Some(if self.switches[switch].is_right.state() {
-                        right
-                    } else {
-                        left
+                    } => Some(match self.switches[switch].direction() {
+                        Direction::Left => left,
+                        Direction::Right => right,
                     }),
                     TrackEnding::Signal { signal, next } => {
                         self.signals[signal].is_clear.state().then_some(next)
@@ -66,6 +68,16 @@ impl RailwayState {
         self.signals.values_mut().for_each(|s| s.is_clear.tick());
 
         self.move_trains();
+    }
+
+    pub fn occupied(&self) -> EnumMap<TrackId, bool> {
+        let mut result = EnumMap::from_fn(|_| false);
+
+        for train in self.trains.values() {
+            result[train.track] = true;
+        }
+
+        result
     }
 }
 

@@ -141,7 +141,7 @@ impl TrackId {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Enum, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum SwitchId {
     MainSiding,
@@ -149,7 +149,7 @@ pub enum SwitchId {
     BottomBypass,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Enum, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum SignalId {
     MainStop,
@@ -158,7 +158,7 @@ pub enum SignalId {
     TopFactory,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Enum, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum TrainId {
     Main,

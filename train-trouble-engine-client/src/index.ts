@@ -51,6 +51,8 @@ export function connect<Channel, View, Action>(
     });
 
     socket.addEventListener("message", event => {
+      watchdog.feed();
+
       if (typeof event.data == "string")
         processMessage(JSON.parse(event.data) as IncomingMessage<View>);
     });

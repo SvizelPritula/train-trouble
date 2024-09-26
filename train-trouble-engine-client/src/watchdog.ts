@@ -1,4 +1,4 @@
-const expireTime = 20 * 1000;
+const expireTime = 30 * 1000;
 const warningTime = 20 * 1000;
 
 export interface Watchdog {
@@ -22,8 +22,8 @@ export function createWatchdog(warning: () => void, expire: () => void): Watchdo
 
   function feed() {
     if (expireTimeout != null) {
-      start();
       stop();
+      start();
     }
   }
 

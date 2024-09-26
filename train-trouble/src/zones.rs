@@ -8,6 +8,14 @@ pub struct ZoneInfo {
     pub signals: &'static [SignalId],
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum ZoneId {
+    Main,
+    Bottom,
+    Top,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub struct SwitchView {
     id: SwitchId,
@@ -18,14 +26,6 @@ pub struct SwitchView {
 pub struct SignalView {
     id: SignalId,
     clear: Option<bool>,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum ZoneId {
-    Main,
-    Bottom,
-    Top,
 }
 
 impl ZoneId {

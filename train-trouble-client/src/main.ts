@@ -1,8 +1,6 @@
 import './main.css';
-import App from './components/App.svelte';
+import Router from './components/Router.svelte';
 
-const app = new App({
+new Router({
   target: document.getElementById('app')!,
 });
-
-export default app;

@@ -8,7 +8,11 @@ export interface Connection<Action> {
 
 const path = "/api/sync";
 
-export function connect<Channel, View, Action>(channel: Channel, onNewView: (view: View) => void): Connection<Action> {
+export function connect<Channel, View, Action>(
+  channel: Channel,
+  onNewView: (view: View) => void,
+  onConnectionChange: (connected: boolean) => void
+): Connection<Action> {
   let pendingActions: Map<string, [() => void, (reason: any) => void]> = new Map();
   let currentSocket: WebSocket | null = null;
 
@@ -36,6 +40,7 @@ export function connect<Channel, View, Action>(channel: Channel, onNewView: (vie
   let stop = reconnect(retry => {
     let socket = new WebSocket(new URL(path, window.location.href));
     currentSocket = socket;
+    onConnectionChange(true);
 
     let watchdog = createWatchdog(() => {
       socket.send(JSON.stringify({ type: "ping" } as OutgoingMessage<Channel, Action>));
@@ -56,7 +61,9 @@ export function connect<Channel, View, Action>(channel: Channel, onNewView: (vie
     return () => {
       socket.close();
       watchdog.stop();
+
       currentSocket = null;
+      onConnectionChange(false);
 
       for (var [resolve, reject] of pendingActions.values()) {
         reject(new SubmitError("connection_broken"));
@@ -107,10 +114,10 @@ type IncomingMessage<View> = {
   error: string
 };
 
-type SubmitErrorReason = "not_connected" | "connection_broken" | "rejected";
+export type SubmitErrorReason = "not_connected" | "connection_broken" | "rejected";
 
-class SubmitError extends Error {
-  reason: string;
+export class SubmitError extends Error {
+  reason: SubmitErrorReason;
 
   constructor(reason: SubmitErrorReason, message?: string) {
     super(message ?? reason);

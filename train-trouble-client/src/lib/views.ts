@@ -11,6 +11,7 @@ export interface ZoneView {
   signals: SignalView[],
   platforms: PlatformView[],
   rates: RateView[],
+  balance: number
 }
 
 export interface SwitchView {

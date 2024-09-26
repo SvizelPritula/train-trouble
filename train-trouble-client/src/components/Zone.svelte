@@ -27,6 +27,11 @@
       {/each}
     </tbody>
   </table>
+
+  <p class="status">
+    Rozpočet:
+    <b>{view.balance.toLocaleString("cs-CZ")}</b>
+  </p>
 </div>
 
 {#each view.platforms.entries() as [idx, { trains }]}

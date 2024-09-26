@@ -119,7 +119,7 @@ impl Game for TrainToubleGame {
                             if self.sell(zone, train, resource, amount) {
                                 ActionResult::Ok
                             } else {
-                                ActionResult::Error("Ve vlaku není této komodity dostatek".into())
+                                ActionResult::Error("Ve vlaku tolik této komodity není".into())
                             }
                         }
                     }

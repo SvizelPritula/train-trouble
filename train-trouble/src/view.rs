@@ -14,6 +14,7 @@ pub struct ZoneView {
     signals: Vec<SignalView>,
     platforms: Vec<PlatformView>,
     rates: Vec<RateView>,
+    balance: i64,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -71,6 +72,7 @@ pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
             .into_iter()
             .map(|(id, rate)| RateView { id, rate })
             .collect(),
+        balance: game.balance,
     }
 }
 

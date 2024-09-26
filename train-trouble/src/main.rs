@@ -1,12 +1,16 @@
 use std::process::Termination;
 
-use railroad::{Direction, RailwayState, SignalId, SwitchId};
+use enum_map::EnumMap;
+use railroad::{Direction, RailwayState, SignalId, SwitchId, TrainId};
+use resources::{Market, Resource};
 use serde::{Deserialize, Serialize};
 use train_trouble_engine::{run, ActionResult, Game};
 use view::View;
 use zones::ZoneId;
 
 mod railroad;
+mod resources;
+mod timers;
 mod tri_state;
 mod view;
 mod zones;
@@ -14,6 +18,9 @@ mod zones;
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 struct TrainToubleGame {
     railway: RailwayState,
+    market: Market,
+    loads: EnumMap<TrainId, EnumMap<Resource, u64>>,
+    balance: u64,
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -39,6 +46,7 @@ impl Game for TrainToubleGame {
 
     fn tick(&mut self) {
         self.railway.tick();
+        self.market.tick();
     }
 
     fn view(&mut self, channel: Self::CHANNEL) -> Self::VIEW {

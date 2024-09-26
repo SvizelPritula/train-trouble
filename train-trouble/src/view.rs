@@ -3,7 +3,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     railroad::{Direction, SignalId, SwitchId, TrackId, TrainId},
-    zones::ZoneId,
+    resources::Resource,
+    zones::{ZoneId, ZoneInfo},
     TrainToubleGame,
 };
 
@@ -12,6 +13,7 @@ pub struct ZoneView {
     switches: Vec<SwitchView>,
     signals: Vec<SignalView>,
     platforms: Vec<PlatformView>,
+    rates: Vec<RateView>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -37,6 +39,12 @@ pub struct TrainView {
     stopped: bool,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct RateView {
+    id: Resource,
+    rate: u64,
+}
+
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
 pub enum View {
@@ -45,15 +53,22 @@ pub enum View {
 }
 
 pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
-    let info = id.info();
+    let ZoneInfo {
+        signals,
+        switches,
+        platforms,
+        ..
+    } = id.info();
+
+    let rates = game.market.rates[id];
 
     ZoneView {
-        switches: info.switches.iter().map(|&id| switch(id, game)).collect(),
-        signals: info.signals.iter().map(|&id| signal(id, game)).collect(),
-        platforms: info
-            .platforms
-            .iter()
-            .map(|&id| platform(id, game))
+        switches: switches.iter().map(|&id| switch(id, game)).collect(),
+        signals: signals.iter().map(|&id| signal(id, game)).collect(),
+        platforms: platforms.iter().map(|&id| platform(id, game)).collect(),
+        rates: rates
+            .into_iter()
+            .map(|(id, rate)| RateView { id, rate })
             .collect(),
     }
 }

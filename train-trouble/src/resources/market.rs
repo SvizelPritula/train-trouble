@@ -1,4 +1,7 @@
-use std::ops::RangeInclusive;
+use std::{
+    cmp::{max, min},
+    ops::RangeInclusive,
+};
 
 use enum_map::EnumMap;
 use rand::{seq::SliceRandom, Rng as _, SeedableRng};
@@ -22,6 +25,7 @@ const UPDATES_PER_EVENT: RangeInclusive<u64> = 12..=24;
 const CURRENT_WEIGHT: u64 = 10;
 const MAX_CHANGE_DENOMINATOR: u64 = 4;
 const MIN_CHANGE_DENOMINATOR: u64 = 6;
+const MAX_NOISE: u64 = 5;
 
 type Rng = Pcg64;
 
@@ -36,7 +40,8 @@ pub struct Market {
 impl Market {
     pub fn tick(&mut self) {
         if self.update_interval.tick() {
-            self.average();
+            self.average_neighbours();
+            self.add_noise();
 
             if self.updates_until_event == 0 {
                 self.updates_until_event = self.rng.gen_range(UPDATES_PER_EVENT);
@@ -47,7 +52,7 @@ impl Market {
         }
     }
 
-    fn average(&mut self) {
+    fn average_neighbours(&mut self) {
         let mut new_market = self.rates;
 
         for (zone, mut rates) in self.rates {
@@ -78,6 +83,20 @@ impl Market {
         self.rates = new_market;
     }
 
+    fn add_noise(&mut self) {
+        for rates in self.rates.values_mut() {
+            for rate in rates.values_mut() {
+                let delta = self.rng.gen_range(0..MAX_NOISE);
+
+                if self.rng.gen() {
+                    *rate = min(*rate + delta, MAX_RATE);
+                } else {
+                    *rate = max(*rate - delta, MIN_RATE);
+                }
+            }
+        }
+    }
+
     fn generate_event(&mut self) {
         let rates = self.rates.as_mut_array().choose_mut(&mut self.rng).unwrap();
         let rate = rates.as_mut_array().choose_mut(&mut self.rng).unwrap();
@@ -95,9 +114,9 @@ impl Market {
             dec_rate
         } else {
             if self.rng.gen() {
-                max_change
+                inc_rate
             } else {
-                min_change
+                dec_rate
             }
         }
     }

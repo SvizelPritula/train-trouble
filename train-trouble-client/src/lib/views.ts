@@ -9,6 +9,7 @@ export interface ZoneView {
   type: "zone",
   switches: SwitchView[],
   signals: SignalView[],
+  platforms: PlatformView[]
 }
 
 export interface SwitchView {
@@ -19,4 +20,13 @@ export interface SwitchView {
 export interface SignalView {
   id: string,
   clear: boolean | null
+}
+
+export interface PlatformView {
+  trains: TrainView[]
+}
+
+export interface TrainView {
+  id: string,
+  stopped: boolean
 }

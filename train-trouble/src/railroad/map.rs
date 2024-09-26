@@ -52,14 +52,16 @@ impl TrackId {
             },
             TrackId::MainSidingLeft => TrackInfo {
                 length: 50,
-                ending: TrackEnding::Track {
+                ending: TrackEnding::Signal {
                     next: TrackId::MainSidingOut,
+                    signal: SignalId::MainSidingLeft,
                 },
             },
             TrackId::MainSidingRight => TrackInfo {
                 length: 50,
-                ending: TrackEnding::Track {
+                ending: TrackEnding::Signal {
                     next: TrackId::MainSidingOut,
+                    signal: SignalId::MainSidingRight,
                 },
             },
             TrackId::MainSidingOut => TrackInfo {
@@ -153,6 +155,8 @@ pub enum SwitchId {
 #[serde(rename_all = "kebab-case")]
 pub enum SignalId {
     MainStop,
+    MainSidingLeft,
+    MainSidingRight,
     BottomSwitch,
     BottomYard,
     TopFactory,

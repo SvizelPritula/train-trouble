@@ -1,17 +1,6 @@
 use enum_map::EnumMap;
-use serde::{Deserialize, Serialize};
 
-use super::{
-    map::TrainId, Direction, Location, SignalId, SignalState, SwitchId, SwitchState, TrackEnding,
-    TrackId,
-};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct RailwayState {
-    pub switches: EnumMap<SwitchId, SwitchState>,
-    pub signals: EnumMap<SignalId, SignalState>,
-    pub trains: EnumMap<TrainId, Location>,
-}
+use super::{map::TrainId, Direction, Location, RailwayState, SignalId, TrackEnding, TrackId};
 
 impl RailwayState {
     fn trace(&self, mut location: Location, mut distance: u64) -> Location {
@@ -78,6 +67,22 @@ impl RailwayState {
         }
 
         result
+    }
+
+    pub fn trains_at_signal(&self, signal: SignalId) -> impl Iterator<Item = (TrainId, bool)> {
+        let signal_closed = !self.signals[signal].is_clear.state();
+
+        self.trains
+            .into_iter()
+            .filter(move |(_train, location)| {
+                let track_signal = match location.track.info().ending {
+                    TrackEnding::Signal { signal, .. } => Some(signal),
+                    _ => None,
+                };
+
+                track_signal == Some(signal)
+            })
+            .map(move |(train, location)| (train, signal_closed && location.remaining_length == 0))
     }
 }
 

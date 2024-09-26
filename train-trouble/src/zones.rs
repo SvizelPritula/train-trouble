@@ -1,11 +1,12 @@
 use enum_map::Enum;
 use serde::{Deserialize, Serialize};
 
-use crate::railroad::{Direction, RailwayState, SignalId, SwitchId};
+use crate::railroad::{SignalId, SwitchId};
 
 pub struct ZoneInfo {
     pub switches: &'static [SwitchId],
     pub signals: &'static [SignalId],
+    pub platforms: &'static [SignalId],
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
@@ -16,57 +17,28 @@ pub enum ZoneId {
     Top,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub struct SwitchView {
-    id: SwitchId,
-    direction: Option<Direction>,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub struct SignalView {
-    id: SignalId,
-    clear: Option<bool>,
-}
-
 impl ZoneId {
     pub fn info(self) -> ZoneInfo {
         match self {
             ZoneId::Main => ZoneInfo {
                 switches: &[SwitchId::MainSiding, SwitchId::MainEnd],
-                signals: &[SignalId::MainStop],
+                signals: &[
+                    SignalId::MainStop,
+                    SignalId::MainSidingLeft,
+                    SignalId::MainSidingRight,
+                ],
+                platforms: &[SignalId::MainSidingLeft, SignalId::MainSidingRight],
             },
             ZoneId::Bottom => ZoneInfo {
                 switches: &[SwitchId::BottomBypass],
                 signals: &[SignalId::BottomYard, SignalId::BottomSwitch],
+                platforms: &[SignalId::BottomYard],
             },
             ZoneId::Top => ZoneInfo {
                 switches: &[],
                 signals: &[SignalId::TopFactory],
+                platforms: &[SignalId::TopFactory],
             },
         }
-    }
-
-    pub fn switches(self, railway: &RailwayState) -> Vec<SwitchView> {
-        self.info()
-            .switches
-            .iter()
-            .copied()
-            .map(|id| SwitchView {
-                id,
-                direction: railway.switches[id].direction.tri_state(),
-            })
-            .collect()
-    }
-
-    pub fn signals(self, railway: &RailwayState) -> Vec<SignalView> {
-        self.info()
-            .signals
-            .iter()
-            .copied()
-            .map(|id| SignalView {
-                id,
-                clear: railway.signals[id].is_clear.tri_state(),
-            })
-            .collect()
     }
 }

@@ -1,13 +1,21 @@
 use std::ops::Not;
 
+use enum_map::EnumMap;
+use serde::{Deserialize, Serialize};
+
 use crate::tri_state::TriStateController;
 
-pub use map::{SignalId, SwitchId, TrackId};
-use serde::{Deserialize, Serialize};
-pub use state::RailwayState;
+pub use map::{SignalId, SwitchId, TrackId, TrainId};
 
 mod map;
 mod state;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RailwayState {
+    pub switches: EnumMap<SwitchId, SwitchState>,
+    pub signals: EnumMap<SignalId, SignalState>,
+    pub trains: EnumMap<TrainId, Location>,
+}
 
 #[derive(Debug, Clone, Copy)]
 pub enum TrackEnding {

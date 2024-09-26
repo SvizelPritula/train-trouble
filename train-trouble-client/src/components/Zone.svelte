@@ -6,6 +6,21 @@
   export let submit: Submit;
 </script>
 
+{#each view.platforms.entries() as [idx, { trains }]}
+  <div class="control">
+    <h2>Kolej {idx + 1}</h2>
+
+    {#each trains as train}
+      <p class="status">
+        Vlak {train.id}
+        {#if !train.stopped}přijíždí…{/if}
+      </p>
+    {:else}
+      <p class="status"><i>Prázdná</i></p>
+    {/each}
+  </div>
+{/each}
+
 {#each view.signals as { id, clear }}
   <div class="control">
     <h2>Návěstidlo {id}</h2>

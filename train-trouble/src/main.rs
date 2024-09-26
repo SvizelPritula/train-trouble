@@ -1,13 +1,14 @@
 use std::process::Termination;
 
-use enum_map::EnumMap;
-use railroad::{Direction, RailwayState, SignalId, SwitchId, TrackId};
+use railroad::{Direction, RailwayState, SignalId, SwitchId};
 use serde::{Deserialize, Serialize};
 use train_trouble_engine::{run, ActionResult, Game};
-use zones::{SignalView, SwitchView, ZoneId};
+use view::View;
+use zones::ZoneId;
 
 mod railroad;
 mod tri_state;
+mod view;
 mod zones;
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -20,18 +21,6 @@ struct TrainToubleGame {
 enum Channel {
     Map,
     Zone { zone: ZoneId },
-}
-
-#[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case", tag = "type")]
-enum View {
-    Map {
-        occupied: EnumMap<TrackId, bool>,
-    },
-    Zone {
-        switches: Vec<SwitchView>,
-        signals: Vec<SignalView>,
-    },
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -57,10 +46,7 @@ impl Game for TrainToubleGame {
             Channel::Map => View::Map {
                 occupied: self.railway.occupied(),
             },
-            Channel::Zone { zone } => View::Zone {
-                switches: zone.switches(&self.railway),
-                signals: zone.signals(&self.railway),
-            },
+            Channel::Zone { zone } => View::Zone(view::zone(zone, self)),
         }
     }
 

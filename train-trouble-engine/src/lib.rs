@@ -1,5 +1,6 @@
 use anyhow::{Error, Result};
 use game_loop::run_loop;
+use save::load;
 use serde::{Deserialize, Serialize};
 use server::run_server;
 use state::ServerState;
@@ -10,6 +11,7 @@ use tracing_subscriber::{fmt, layer::SubscriberExt, registry, util::SubscriberIn
 
 mod channel_map;
 mod game_loop;
+mod save;
 mod server;
 mod state;
 
@@ -37,11 +39,15 @@ pub async fn run<G: Game + 'static>() -> Result<()> {
     let stdout = fmt::layer().with_filter(LevelFilter::INFO);
     registry().with(stdout).init();
 
+    let game: G = load()
+        .await
+        .inspect_err(|error| error!("Failed to load save: {error}"))?;
+
     let state_for_loop = ServerState::<G>::default();
     let state_for_server = state_for_loop.clone();
 
     try_join!(
-        spawn_anyhow(|| run_loop(state_for_loop)),
+        spawn_anyhow(|| run_loop(game, state_for_loop)),
         spawn_anyhow(|| run_server(state_for_server)),
     )
     .inspect_err(|error| {

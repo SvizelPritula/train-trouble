@@ -4,15 +4,17 @@ use anyhow::Result;
 use tokio::time::interval;
 
 use crate::{
+    save::{spawn_save, SAVE_INTERVAL},
     state::{Action, ServerState},
     Game,
 };
 
-pub async fn run_loop<G: Game>(state: ServerState<G>) -> Result<()> {
-    let mut game = G::default();
-
+pub async fn run_loop<G: Game>(mut game: G, state: ServerState<G>) -> Result<()> {
     let period = Duration::from_secs(1) / G::TICK_RATE.try_into().unwrap();
-    let mut interval = interval(period);
+    let mut game_interval = interval(period);
+
+    let ticks_per_save: u64 = SAVE_INTERVAL.as_secs() * G::TICK_RATE;
+    let mut ticks_until_save: u64 = ticks_per_save;
 
     loop {
         let actions = state.actions.take_actions();
@@ -27,7 +29,7 @@ pub async fn run_loop<G: Game>(state: ServerState<G>) -> Result<()> {
             let _ = sender.send(result);
         }
 
-        interval.tick().await;
+        game_interval.tick().await;
         game.tick();
 
         {
@@ -45,6 +47,12 @@ pub async fn run_loop<G: Game>(state: ServerState<G>) -> Result<()> {
                     }
                 });
             }
+        }
+
+        ticks_until_save -= 1;
+        if ticks_until_save == 0 {
+            spawn_save(game.clone());
+            ticks_until_save = ticks_per_save;
         }
     }
 }

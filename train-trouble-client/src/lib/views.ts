@@ -9,7 +9,8 @@ export interface ZoneView {
   type: "zone",
   switches: SwitchView[],
   signals: SignalView[],
-  platforms: PlatformView[]
+  platforms: PlatformView[],
+  rates: RateView[],
 }
 
 export interface SwitchView {
@@ -29,4 +30,9 @@ export interface PlatformView {
 export interface TrainView {
   id: string,
   stopped: boolean
+}
+
+export interface RateView {
+  id: string,
+  rate: number
 }

@@ -6,6 +6,28 @@
   export let submit: Submit;
 </script>
 
+<div class="control">
+  <h2>Kurzy</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Komodita</th>
+        <th>Cena za jednotku</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {#each view.rates as { id, rate }}
+        <tr>
+          <td>{id}</td>
+          <td>{rate}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+
 {#each view.platforms.entries() as [idx, { trains }]}
   <div class="control">
     <h2>Kolej {idx + 1}</h2>
@@ -90,10 +112,11 @@
 
   h2 {
     margin: 0;
+    margin-bottom: 1rem;
   }
 
   .status {
-    margin: 0.5rem 0;
+    margin: 1rem 0;
     font-size: 1.25rem;
   }
 
@@ -116,5 +139,19 @@
   button:disabled {
     color: #bbb;
     background-color: #444;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  td, th {
+    text-align: center;
+    padding: 0.2rem;
+  }
+
+  thead{
+    border-bottom: 0.2rem #fff solid;
   }
 </style>

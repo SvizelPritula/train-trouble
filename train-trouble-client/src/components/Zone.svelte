@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Submit } from "../lib/actions";
   import type { ZoneView } from "../lib/views";
+  import TradeForm from "./TradeForm.svelte";
 
   export let view: ZoneView;
   export let submit: Submit;
@@ -37,6 +38,10 @@
         Vlak {train.id}
         {#if !train.stopped}přijíždí…{/if}
       </p>
+
+      {#if train.load != null}
+        <TradeForm rates={view.rates} {train} {submit} />
+      {/if}
     {:else}
       <p class="status"><i>Prázdná</i></p>
     {/each}
@@ -146,12 +151,13 @@
     border-collapse: collapse;
   }
 
-  td, th {
+  td,
+  th {
     text-align: center;
     padding: 0.2rem;
   }
 
-  thead{
+  thead {
     border-bottom: 0.2rem #fff solid;
   }
 </style>

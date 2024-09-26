@@ -29,7 +29,8 @@ export interface PlatformView {
 
 export interface TrainView {
   id: string,
-  stopped: boolean
+  stopped: boolean,
+  load: Record<string, number> | null
 }
 
 export interface RateView {

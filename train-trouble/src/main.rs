@@ -20,7 +20,7 @@ struct TrainToubleGame {
     railway: RailwayState,
     market: Market,
     loads: EnumMap<TrainId, EnumMap<Resource, u64>>,
-    balance: u64,
+    balance: i64,
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
@@ -30,11 +30,30 @@ enum Channel {
     Zone { zone: ZoneId },
 }
 
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+enum TradeType {
+    Buy,
+    Sell,
+}
+
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
 enum Action {
-    Switch { id: SwitchId, direction: Direction },
-    Signal { id: SignalId, clear: bool },
+    Switch {
+        id: SwitchId,
+        direction: Direction,
+    },
+    Signal {
+        id: SignalId,
+        clear: bool,
+    },
+    Trade {
+        action: TradeType,
+        train: TrainId,
+        resource: Resource,
+        amount: u64,
+    },
 }
 
 impl Game for TrainToubleGame {
@@ -74,6 +93,36 @@ impl Game for TrainToubleGame {
                     ActionResult::Ok
                 } else {
                     ActionResult::Misdirected
+                }
+            }
+            (
+                Channel::Zone { zone },
+                Action::Trade {
+                    action,
+                    train,
+                    resource,
+                    amount,
+                },
+            ) => {
+                if !self.train_in_zone(train, zone) {
+                    ActionResult::Error("Tento vlak zde nestojí".into())
+                } else {
+                    match action {
+                        TradeType::Buy => {
+                            if self.buy(zone, train, resource, amount) {
+                                ActionResult::Ok
+                            } else {
+                                ActionResult::Error("Tak velký náklad se na vlak nevejde".into())
+                            }
+                        }
+                        TradeType::Sell => {
+                            if self.sell(zone, train, resource, amount) {
+                                ActionResult::Ok
+                            } else {
+                                ActionResult::Error("Ve vlaku není této komodity dostatek".into())
+                            }
+                        }
+                    }
                 }
             }
             _ => ActionResult::Misdirected,

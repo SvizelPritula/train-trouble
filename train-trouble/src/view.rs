@@ -37,6 +37,7 @@ pub struct PlatformView {
 pub struct TrainView {
     id: TrainId,
     stopped: bool,
+    load: Option<EnumMap<Resource, u64>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -93,7 +94,15 @@ fn platform(id: SignalId, game: &TrainToubleGame) -> PlatformView {
             .railway
             .trains_at_signal(id)
             .into_iter()
-            .map(|(id, stopped)| TrainView { id, stopped })
+            .map(|(id, stopped)| train(id, stopped, game))
             .collect(),
+    }
+}
+
+fn train(id: TrainId, stopped: bool, game: &TrainToubleGame) -> TrainView {
+    TrainView {
+        id,
+        stopped,
+        load: stopped.then_some(game.loads[id]),
     }
 }

@@ -1,7 +1,10 @@
 use enum_map::Enum;
 use serde::{Deserialize, Serialize};
 
-use crate::railroad::{SignalId, SwitchId};
+use crate::{
+    railroad::{SignalId, SwitchId, TrainId},
+    TrainToubleGame,
+};
 
 pub struct ZoneInfo {
     pub neighbours: &'static [ZoneId],
@@ -44,5 +47,15 @@ impl ZoneId {
                 platforms: &[SignalId::TopFactory],
             },
         }
+    }
+}
+
+impl TrainToubleGame {
+    pub fn train_in_zone(&self, train: TrainId, zone: ZoneId) -> bool {
+        zone.info()
+            .platforms
+            .iter()
+            .flat_map(|p| self.railway.trains_at_signal(*p))
+            .any(|(t, stopped)| t == train && stopped)
     }
 }

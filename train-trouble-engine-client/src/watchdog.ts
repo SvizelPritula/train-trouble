@@ -18,6 +18,8 @@ export function createWatchdog(warning: () => void, expire: () => void): Watchdo
   function stop() {
     if (warningTimeout != null) clearTimeout(warningTimeout);
     if (expireTimeout != null) clearTimeout(expireTimeout);
+    warningTimeout = null;
+    expireTimeout = null;
   }
 
   function feed() {

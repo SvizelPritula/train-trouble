@@ -19,13 +19,13 @@ const DEFAULT_RATE: u64 = 500;
 
 const SEED: u64 = 0x4814ae3d;
 
-const UPDATE_INTERVAL: u64 = 100;
-const UPDATES_PER_EVENT: RangeInclusive<u64> = 12..=24;
+const UPDATE_INTERVAL: u64 = 15 * 20;
+const UPDATES_PER_EVENT: RangeInclusive<u64> = 6..=10;
 
-const CURRENT_WEIGHT: u64 = 10;
+const AVERAGING_PULL_DENOMINATOR: i64 = 12;
 const MAX_CHANGE_DENOMINATOR: u64 = 4;
 const MIN_CHANGE_DENOMINATOR: u64 = 6;
-const MAX_NOISE: u64 = 5;
+const NOISE_RANGE: RangeInclusive<i64> = -2..=2;
 
 type Rng = Pcg64;
 
@@ -55,27 +55,29 @@ impl Market {
     fn average_neighbours(&mut self) {
         let mut new_market = self.rates;
 
-        for (zone, mut rates) in self.rates {
+        for (zone, rates) in self.rates {
             let info = zone.info();
-            let neighbours = info.neighbours.len() as u64;
+            let neighbours = info.neighbours.len() as i64;
 
             if info.neighbours.is_empty() {
                 continue;
             }
 
-            rates
-                .values_mut()
-                .for_each(|rate| *rate *= CURRENT_WEIGHT * neighbours);
+            let mut deltas: EnumMap<Resource, i64> = EnumMap::default();
 
             for neigbour in info.neighbours {
                 for (resource, rate) in self.rates[*neigbour] {
-                    rates[resource] += rate;
+                    let delta = rate as i64 - rates[resource] as i64;
+                    deltas[resource] += delta;
                 }
             }
 
-            rates
-                .values_mut()
-                .for_each(|rate| *rate /= (CURRENT_WEIGHT + 1) * neighbours);
+            let mut rates = rates;
+
+            for (resource, delta) in deltas {
+                rates[resource] = rates[resource]
+                    .saturating_add_signed(delta / (AVERAGING_PULL_DENOMINATOR * neighbours));
+            }
 
             new_market[zone] = rates;
         }
@@ -86,13 +88,11 @@ impl Market {
     fn add_noise(&mut self) {
         for rates in self.rates.values_mut() {
             for rate in rates.values_mut() {
-                let delta = self.rng.gen_range(0..MAX_NOISE);
+                let delta = self.rng.gen_range(NOISE_RANGE);
 
-                if self.rng.gen() {
-                    *rate = min(*rate + delta, MAX_RATE);
-                } else {
-                    *rate = max(*rate - delta, MIN_RATE);
-                }
+                *rate = min(rate.saturating_add_signed(delta), MAX_RATE);
+                *rate = min(*rate, MAX_RATE);
+                *rate = max(*rate, MIN_RATE);
             }
         }
     }

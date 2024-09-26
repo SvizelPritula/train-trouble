@@ -65,7 +65,7 @@
         {:else if clear == false}
           stůj
         {:else}
-          přehazuji…
+          přepínám…
         {/if}
       </b>
     </p>

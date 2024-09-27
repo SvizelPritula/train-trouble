@@ -110,7 +110,6 @@ fn platform(id: SignalId, game: &TrainToubleGame) -> PlatformView {
         trains: game
             .railway
             .trains_at_signal(id)
-            .into_iter()
             .map(|(id, stopped)| train(id, stopped, game))
             .collect(),
     }

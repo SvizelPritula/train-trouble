@@ -112,12 +112,10 @@ impl Market {
             inc_rate
         } else if inc_rate > MAX_RATE {
             dec_rate
+        } else if self.rng.gen() {
+            inc_rate
         } else {
-            if self.rng.gen() {
-                inc_rate
-            } else {
-                dec_rate
-            }
+            dec_rate
         }
     }
 }

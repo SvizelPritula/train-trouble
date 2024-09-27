@@ -48,7 +48,7 @@ impl<'a, G: Game> Socket<'a, G> {
 }
 
 pub async fn run<G: Game>(state: ServerState<G>, ws: &mut WebSocket) -> Result<()> {
-    let mut socket: Socket<G> = Socket(ws, PhantomData::default());
+    let mut socket: Socket<G> = Socket(ws, PhantomData);
 
     macro_rules! socket_error {
         ($error: expr) => {{
@@ -91,7 +91,7 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: &mut WebSocket) -> Result<(
             },
 
             changed = subscription.inner().changed() => {
-                let _ = changed?;
+                changed?;
                 let state = subscription.inner().borrow_and_update().clone();
 
                 if let Some(state) = state {

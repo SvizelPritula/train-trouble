@@ -14,11 +14,8 @@ WORKDIR /usr/src/train-trouble
 COPY train-trouble-client/ ./train-trouble-client/
 COPY train-trouble-engine-client/ ./train-trouble-engine-client/
 
-WORKDIR /usr/src/train-trouble/train-trouble-engine-client/
-RUN npm ci --no-audit --no-fund
-
 WORKDIR /usr/src/train-trouble/train-trouble-client/
-RUN npm ci --no-audit --no-fund
+RUN npm ci --no-audit --no-fund --install-links=true
 RUN npm run build
 
 FROM docker.io/library/alpine:3.20 AS runtime

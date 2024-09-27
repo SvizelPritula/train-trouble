@@ -26,5 +26,5 @@ pub enum SocketError {
     MalformedMessage,
     NoLogin,
     DoubleLogin,
-    MisdirectedAction
+    MisdirectedAction,
 }

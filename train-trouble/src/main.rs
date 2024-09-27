@@ -1,9 +1,7 @@
 use std::process::Termination;
 
 use enum_map::EnumMap;
-use railroad::{
-    Direction, RailwayState, SignalId, SwitchId, TrainId, CRASH_PENALTY,
-};
+use railroad::{Direction, RailwayState, SignalId, SwitchId, TrainId, CRASH_PENALTY};
 use resources::{Market, Resource};
 use serde::{Deserialize, Serialize};
 use train_trouble_engine::{run, ActionResult, Game};

@@ -20,10 +20,10 @@ pub enum TrackId {
     DolníMechoklatyStop,
     DolníMechoklatySwitch,
 
-    ToPředvoranySwitchLeft,
-    ToPředvoranySwitchRight,
-    PředvoranySwitch,
-    PředvoranyStop,
+    ToPředvořanySwitchLeft,
+    ToPředvořanySwitchRight,
+    PředvořanySwitch,
+    PředvořanyStop,
 
     ToKolnovLeft,
     ToKolnovRight,
@@ -94,7 +94,7 @@ impl TrackId {
                 length: 100,
                 ending: TrackEnding::Signal {
                     signal: SignalId::HorníMechoklatyExit,
-                    next: TrackId::ToPředvoranySwitchLeft,
+                    next: TrackId::ToPředvořanySwitchLeft,
                 },
             },
 
@@ -116,34 +116,34 @@ impl TrackId {
                 length: 20,
                 ending: TrackEnding::Switch {
                     switch: SwitchId::DolníMechoklaty,
-                    left: TrackId::ToPředvoranySwitchRight,
+                    left: TrackId::ToPředvořanySwitchRight,
                     right: TrackId::ToKolnovRight,
                 },
             },
 
-            TrackId::ToPředvoranySwitchLeft => TrackInfo {
+            TrackId::ToPředvořanySwitchLeft => TrackInfo {
                 length: 140,
                 ending: TrackEnding::Track {
-                    next: TrackId::PředvoranySwitch,
+                    next: TrackId::PředvořanySwitch,
                 },
             },
-            TrackId::ToPředvoranySwitchRight => TrackInfo {
+            TrackId::ToPředvořanySwitchRight => TrackInfo {
                 length: 200,
                 ending: TrackEnding::Track {
-                    next: TrackId::PředvoranySwitch,
+                    next: TrackId::PředvořanySwitch,
                 },
             },
-            TrackId::PředvoranySwitch => TrackInfo {
+            TrackId::PředvořanySwitch => TrackInfo {
                 length: 20,
                 ending: TrackEnding::Signal {
-                    signal: SignalId::PředvoranyEntry,
-                    next: TrackId::PředvoranyStop,
+                    signal: SignalId::PředvořanyEntry,
+                    next: TrackId::PředvořanyStop,
                 },
             },
-            TrackId::PředvoranyStop => TrackInfo {
+            TrackId::PředvořanyStop => TrackInfo {
                 length: 100,
                 ending: TrackEnding::Signal {
-                    signal: SignalId::PředvoranyExit,
+                    signal: SignalId::PředvořanyExit,
                     next: TrackId::ToKolnovLeft,
                 },
             },
@@ -239,8 +239,8 @@ pub enum SignalId {
     DolníMechoklatyEntry,
     DolníMechoklatyExit,
 
-    PředvoranyEntry,
-    PředvoranyExit,
+    PředvořanyEntry,
+    PředvořanyExit,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]

@@ -102,29 +102,29 @@
     />
     <path
       d="M 330,260 H 480"
-      class:occupied={occupied["to-předvorany-switch-left"]}
+      class:occupied={occupied["to-předvořany-switch-left"]}
     />
     <path
       d="m 390,379.99999 90,-90"
-      class:occupied={occupied["to-předvorany-switch-right"]}
+      class:occupied={occupied["to-předvořany-switch-right"]}
     />
     <path
       d="M 570.00002,259.99999 480,260"
-      class:occupied={occupied["předvorany-switch"]}
+      class:occupied={occupied["předvořany-switch"]}
     />
     <path
       d="m 510,260 -30,29.99999"
-      class:occupied={occupied["předvorany-switch"]}
+      class:occupied={occupied["předvořany-switch"]}
     />
     <path
       d="M 559.99998,260 550,270 v -20 z"
-      class:occupied={occupied["předvorany-switch"]}
+      class:occupied={occupied["předvořany-switch"]}
       class="signal"
     />
-    <path d="M 570,260 H 710" class:occupied={occupied["předvorany-stop"]} />
+    <path d="M 570,260 H 710" class:occupied={occupied["předvořany-stop"]} />
     <path
       d="m 700,260 -9.99998,10 v -20 z"
-      class:occupied={occupied["předvorany-stop"]}
+      class:occupied={occupied["předvořany-stop"]}
       class="signal"
     />
     <path
@@ -192,7 +192,7 @@
   <g class="text" font-family="'Noto Mono'">
     <g class="title">
       <text x="235" y="50">Nová Ves nad Spálou</text>
-      <text x="625" y="230">Předvorany</text>
+      <text x="625" y="230">Předvořany</text>
       <text x="245" y="230">Horní Mechoklaty</text>
       <text x="245" y="380">Dolní Mechoklaty</text>
       <text x="670" y="50">Kolnov</text>

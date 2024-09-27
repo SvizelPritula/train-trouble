@@ -20,7 +20,7 @@ pub enum ZoneId {
     Kolnov,
     HorníMechoklaty,
     DolníMechoklaty,
-    Předvorany,
+    Předvořany,
 }
 
 impl ZoneId {
@@ -42,7 +42,7 @@ impl ZoneId {
                 platforms: &[SignalId::NováVesLeftExit, SignalId::NováVesRightExit],
             },
             ZoneId::Kolnov => ZoneInfo {
-                neighbours: &[ZoneId::NováVes, ZoneId::Předvorany],
+                neighbours: &[ZoneId::NováVes, ZoneId::Předvořany],
                 switches: &[SwitchId::KolnovEntry, SwitchId::KolnovExit],
                 signals: &[
                     SignalId::KolnovLeftEntry,
@@ -53,7 +53,7 @@ impl ZoneId {
                 platforms: &[SignalId::KolnovLeftExit, SignalId::KolnovRightExit],
             },
             ZoneId::HorníMechoklaty => ZoneInfo {
-                neighbours: &[ZoneId::NováVes, ZoneId::Předvorany],
+                neighbours: &[ZoneId::NováVes, ZoneId::Předvořany],
                 switches: &[],
                 signals: &[
                     SignalId::HorníMechoklatyEntry,
@@ -62,7 +62,7 @@ impl ZoneId {
                 platforms: &[SignalId::HorníMechoklatyExit],
             },
             ZoneId::DolníMechoklaty => ZoneInfo {
-                neighbours: &[ZoneId::NováVes, ZoneId::Předvorany],
+                neighbours: &[ZoneId::NováVes, ZoneId::Předvořany],
                 switches: &[SwitchId::DolníMechoklaty],
                 signals: &[
                     SignalId::DolníMechoklatyEntry,
@@ -70,15 +70,15 @@ impl ZoneId {
                 ],
                 platforms: &[SignalId::DolníMechoklatyExit],
             },
-            ZoneId::Předvorany => ZoneInfo {
+            ZoneId::Předvořany => ZoneInfo {
                 neighbours: &[
                     ZoneId::Kolnov,
                     ZoneId::HorníMechoklaty,
                     ZoneId::DolníMechoklaty,
                 ],
                 switches: &[],
-                signals: &[SignalId::PředvoranyEntry, SignalId::PředvoranyExit],
-                platforms: &[SignalId::PředvoranyExit],
+                signals: &[SignalId::PředvořanyEntry, SignalId::PředvořanyExit],
+                platforms: &[SignalId::PředvořanyExit],
             },
         }
     }

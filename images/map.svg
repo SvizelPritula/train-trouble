@@ -182,40 +182,40 @@
        d="M 330,260 H 480"
        id="path37"
        sodipodi:nodetypes="cc"
-       inkscape:label="to-předvorany-switch-left" />
+       inkscape:label="to-předvořany-switch-left" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="m 390,379.99999 90,-90"
        id="path45"
        sodipodi:nodetypes="cc"
-       inkscape:label="to-předvorany-switch-right" />
+       inkscape:label="to-předvořany-switch-right" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="M 570.00002,259.99999 480,260"
        id="path46"
        sodipodi:nodetypes="cc"
-       inkscape:label="předvorany-switch-straight" />
+       inkscape:label="předvořany-switch-straight" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="m 510,260 -30,29.99999"
        id="path48"
-       inkscape:label="předvorany-switch-side" />
+       inkscape:label="předvořany-switch-side" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="M 559.99998,260 550,270 v -20 z"
        id="path31"
-       inkscape:label="předvorany-switch-signal" />
+       inkscape:label="předvořany-switch-signal" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="M 570,260 H 710"
        id="path32"
        sodipodi:nodetypes="cc"
-       inkscape:label="předvorany-stop" />
+       inkscape:label="předvořany-stop" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="m 700,260 -9.99998,10 v -20 z"
        id="path33"
-       inkscape:label="předvorany-stop-signal" />
+       inkscape:label="předvořany-stop-signal" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        d="m 710.00001,260 h 30 l 60,-60 L 800,140.00001 769.99998,109.99999 h -29.99999"
@@ -601,19 +601,19 @@
        x="625"
        y="230"
        id="text50-7"
-       inkscape:label="předvorany-title"><tspan
+       inkscape:label="předvořany-title"><tspan
          sodipodi:role="line"
          id="tspan50-0"
          style="font-size:16px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
          x="625"
-         y="230">Předvorany</tspan></text>
+         y="230">Předvořany</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
        x="560"
        y="250"
        id="text62"
-       inkscape:label="předvorany-signal-1"><tspan
+       inkscape:label="předvořany-signal-1"><tspan
          sodipodi:role="line"
          id="tspan62"
          style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
@@ -625,7 +625,7 @@
        x="700"
        y="250"
        id="text63"
-       inkscape:label="předvorany-signal-2"><tspan
+       inkscape:label="předvořany-signal-2"><tspan
          sodipodi:role="line"
          id="tspan63"
          style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"

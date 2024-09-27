@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{path::PathBuf, time::Duration};
 
 use anyhow::Result;
 use tokio::time::interval;
@@ -9,7 +9,11 @@ use crate::{
     Game,
 };
 
-pub async fn run_loop<G: Game>(mut game: G, state: ServerState<G>) -> Result<()> {
+pub async fn run_loop<G: Game>(
+    mut game: G,
+    state: ServerState<G>,
+    save_path: Option<PathBuf>,
+) -> Result<()> {
     let period = Duration::from_secs(1) / G::TICK_RATE.try_into().unwrap();
     let mut game_interval = interval(period);
 
@@ -51,7 +55,7 @@ pub async fn run_loop<G: Game>(mut game: G, state: ServerState<G>) -> Result<()>
 
         ticks_until_save -= 1;
         if ticks_until_save == 0 {
-            spawn_save(game.clone());
+            spawn_save(game.clone(), save_path.clone());
             ticks_until_save = ticks_per_save;
         }
     }

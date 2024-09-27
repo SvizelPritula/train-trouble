@@ -1,10 +1,11 @@
 use anyhow::{Error, Result};
+use clap::Parser;
 use game_loop::run_loop;
 use save::load;
 use serde::{Deserialize, Serialize};
 use server::run_server;
 use state::ServerState;
-use std::{future::Future, hash::Hash};
+use std::{future::Future, hash::Hash, path::PathBuf};
 use tokio::try_join;
 use tracing::{error, level_filters::LevelFilter};
 use tracing_subscriber::{fmt, layer::SubscriberExt, registry, util::SubscriberInitExt, Layer};
@@ -34,12 +35,27 @@ pub enum ActionResult {
     Misdirected,
 }
 
+#[derive(Debug, Clone, Parser)]
+struct CliArgs {
+    /// The port to listen on
+    #[arg(long, default_value_t = 8000, env)]
+    port: u16,
+    /// A directory to serve at server root
+    #[arg(long, env)]
+    serve: Option<PathBuf>,
+    /// The path to a file in which the game will be saved
+    #[arg(long, env)]
+    save: Option<PathBuf>,
+}
+
 #[tokio::main]
 pub async fn run<G: Game + 'static>() -> Result<()> {
+    let args = CliArgs::parse();
+
     let stdout = fmt::layer().with_filter(LevelFilter::INFO);
     registry().with(stdout).init();
 
-    let game: G = load()
+    let game: G = load(&args.save)
         .await
         .inspect_err(|error| error!("Failed to load save: {error}"))?;
 
@@ -47,8 +63,8 @@ pub async fn run<G: Game + 'static>() -> Result<()> {
     let state_for_server = state_for_loop.clone();
 
     try_join!(
-        spawn_anyhow(|| run_loop(game, state_for_loop)),
-        spawn_anyhow(|| run_server(state_for_server)),
+        spawn_anyhow(|| run_loop(game, state_for_loop, args.save)),
+        spawn_anyhow(|| run_server(state_for_server, args.port, args.serve)),
     )
     .inspect_err(|error| {
         error!("Failed to run server: {error}");

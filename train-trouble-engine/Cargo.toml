@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.89"
 axum = { version = "0.7.6", features = ["ws"] }
+clap = { version = "4.5.18", features = ["derive", "env"] }
 parking_lot = "0.12.3"
 serde = "1.0.210"
 serde_json = "1.0.128"
@@ -15,10 +16,10 @@ tokio = { version = "1.40.0", features = [
     "rt-multi-thread",
     "sync",
     "time",
-    "fs"
+    "fs",
 ] }
 tower = "0.5.1"
-tower-http = { version = "0.6.1", features = ["trace", "set-header"] }
+tower-http = { version = "0.6.1", features = ["trace", "set-header", "fs"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["parking_lot"] }
 uuid = { version = "1.10.0", features = ["serde"] }

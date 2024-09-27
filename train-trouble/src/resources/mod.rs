@@ -13,9 +13,24 @@ const MAX_TRAIN_LOAD: u64 = 100;
 #[serde(rename_all = "kebab-case")]
 pub enum Resource {
     Wood,
-    Wheat,
     Coal,
     Iron,
+    Wool,
+    Wheat,
+    Salt,
+}
+
+impl Resource {
+    pub fn name(self) -> &'static str {
+        match self {
+            Resource::Wood => "Dřevo",
+            Resource::Coal => "Uhlí",
+            Resource::Iron => "Železo",
+            Resource::Wool => "Vlna",
+            Resource::Wheat => "Obilí",
+            Resource::Salt => "Sůl",
+        }
+    }
 }
 
 impl TrainToubleGame {

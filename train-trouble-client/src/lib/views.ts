@@ -40,5 +40,6 @@ export interface TrainView {
 
 export interface RateView {
   id: string,
+  name: string,
   rate: number
 }

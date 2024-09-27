@@ -48,6 +48,7 @@ pub struct TrainView {
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct RateView {
     id: Resource,
+    name: &'static str,
     rate: u64,
 }
 
@@ -75,7 +76,11 @@ pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
         platforms: platforms.iter().map(|&id| platform(id, game)).collect(),
         rates: rates
             .into_iter()
-            .map(|(id, rate)| RateView { id, rate })
+            .map(|(id, rate)| RateView {
+                id,
+                name: id.name(),
+                rate,
+            })
             .collect(),
         balance: game.balance,
     }

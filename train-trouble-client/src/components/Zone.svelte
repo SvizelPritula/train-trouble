@@ -25,10 +25,10 @@
     </thead>
 
     <tbody>
-      {#each view.rates as { id, rate }}
+      {#each view.rates as { name, rate }}
         <tr>
-          <td>{id}</td>
-          <td>{rate}</td>
+          <td>{name}</td>
+          <td>{rate} ₸</td>
         </tr>
       {/each}
     </tbody>
@@ -36,7 +36,7 @@
 
   <p class="status">
     Rozpočet:
-    <b>{view.balance.toLocaleString("cs-CZ")}</b>
+    <b>{view.balance.toLocaleString("cs-CZ")} ₸</b>
   </p>
 </div>
 

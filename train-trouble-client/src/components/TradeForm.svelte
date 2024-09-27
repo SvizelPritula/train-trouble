@@ -41,7 +41,7 @@
     </thead>
 
     <tbody>
-      {#each rates as { id }}
+      {#each rates as { id, name }}
         <tr>
           <td>
             <input
@@ -53,7 +53,7 @@
               bind:group={resource}
             />
           </td>
-          <td><label for={`${train.id}-${id}`}>{id}</label></td>
+          <td><label for={`${train.id}-${id}`}>{name}</label></td>
           <td>{load[id]}</td>
         </tr>
       {/each}

@@ -1,5 +1,5 @@
 use enum_map::EnumMap;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 use crate::{
     railroad::{Direction, SignalId, SwitchId, TrackId, TrainId},
@@ -8,8 +8,9 @@ use crate::{
     TrainToubleGame,
 };
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct ZoneView {
+    name: &'static str,
     switches: Vec<SwitchView>,
     signals: Vec<SignalView>,
     platforms: Vec<PlatformView>,
@@ -17,37 +18,40 @@ pub struct ZoneView {
     balance: i64,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct SwitchView {
     id: SwitchId,
+    name: &'static str,
     direction: Option<Direction>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct SignalView {
     id: SignalId,
+    name: &'static str,
     clear: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct PlatformView {
     trains: Vec<TrainView>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct TrainView {
     id: TrainId,
+    name: &'static str,
     stopped: bool,
     load: Option<EnumMap<Resource, u64>>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
 pub struct RateView {
     id: Resource,
     rate: u64,
 }
 
-#[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
 pub enum View {
     Map { occupied: EnumMap<TrackId, bool> },
@@ -65,6 +69,7 @@ pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
     let rates = game.market.rates[id];
 
     ZoneView {
+        name: id.name(),
         switches: switches.iter().map(|&id| switch(id, game)).collect(),
         signals: signals.iter().map(|&id| signal(id, game)).collect(),
         platforms: platforms.iter().map(|&id| platform(id, game)).collect(),
@@ -79,6 +84,7 @@ pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
 fn switch(id: SwitchId, game: &TrainToubleGame) -> SwitchView {
     SwitchView {
         id,
+        name: id.name(),
         direction: game.railway.switches[id].direction.tri_state(),
     }
 }
@@ -86,6 +92,7 @@ fn switch(id: SwitchId, game: &TrainToubleGame) -> SwitchView {
 fn signal(id: SignalId, game: &TrainToubleGame) -> SignalView {
     SignalView {
         id,
+        name: id.name(),
         clear: game.railway.signals[id].is_clear.tri_state(),
     }
 }
@@ -104,6 +111,7 @@ fn platform(id: SignalId, game: &TrainToubleGame) -> PlatformView {
 fn train(id: TrainId, stopped: bool, game: &TrainToubleGame) -> TrainView {
     TrainView {
         id,
+        name: id.name(),
         stopped,
         load: stopped.then_some(game.loads[id]),
     }

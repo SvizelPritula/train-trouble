@@ -7,7 +7,13 @@
   export let submit: Submit;
 </script>
 
+<svelte:head>
+  <title>{view.name} | Train Trouble</title>
+</svelte:head>
+
 <div class="control">
+  <h1>{view.name}</h1>
+
   <h2>Kurzy</h2>
 
   <table>
@@ -40,7 +46,7 @@
 
     {#each trains as train}
       <p class="status">
-        Vlak {train.id}
+        Vlak {train.name}
         {#if !train.stopped}přijíždí…{/if}
       </p>
 
@@ -53,9 +59,9 @@
   </div>
 {/each}
 
-{#each view.signals as { id, clear }}
+{#each view.signals as { id, name, clear }}
   <div class="control">
-    <h2>Návěstidlo {id}</h2>
+    <h2>Návěstidlo {name}</h2>
 
     <p class="status">
       Návěst:
@@ -84,9 +90,9 @@
   </div>
 {/each}
 
-{#each view.switches as { id, direction }}
+{#each view.switches as { id, name, direction }}
   <div class="control">
-    <h2>Výhybka {id}</h2>
+    <h2>Výhybka {name}</h2>
 
     <p class="status">
       Směr:

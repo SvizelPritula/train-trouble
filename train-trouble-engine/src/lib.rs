@@ -16,9 +16,9 @@ mod server;
 mod state;
 
 pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default + Send + 'static {
-    type CHANNEL: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Hash + Send + Sync;
-    type VIEW: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
-    type ACTION: Serialize + for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
+    type CHANNEL: for<'de> Deserialize<'de> + Clone + Eq + Hash + Send + Sync;
+    type VIEW: Serialize + Clone + Eq + Send + Sync;
+    type ACTION: for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
 
     const TICK_RATE: u64;
 

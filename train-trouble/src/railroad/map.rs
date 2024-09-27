@@ -244,17 +244,56 @@ pub enum SignalId {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
-#[serde(rename_all = "kebab-case")]
 pub enum TrainId {
-    Red,
-    Blue,
+    Pn1,
+    Pn2,
+}
+
+impl SwitchId {
+    pub fn name(self) -> &'static str {
+        match self {
+            SwitchId::NováVesLeft => "Na",
+            SwitchId::NováVesRight => "Nb",
+            SwitchId::KolnovEntry => "Ka",
+            SwitchId::KolnovExit => "Kb",
+            SwitchId::DolníMechoklaty => "Da",
+        }
+    }
+}
+
+impl SignalId {
+    pub fn name(self) -> &'static str {
+        match self {
+            SignalId::NováVesLeftEntry => "N1",
+            SignalId::NováVesRightEntry => "N2",
+            SignalId::NováVesLeftExit => "N3",
+            SignalId::NováVesRightExit => "N4",
+            SignalId::KolnovLeftEntry => "K1",
+            SignalId::KolnovRightEntry => "K2",
+            SignalId::KolnovLeftExit => "K3",
+            SignalId::KolnovRightExit => "K4",
+            SignalId::HorníMechoklatyEntry => "H1",
+            SignalId::HorníMechoklatyExit => "H2",
+            SignalId::DolníMechoklatyEntry => "D1",
+            SignalId::DolníMechoklatyExit => "D2",
+            SignalId::PředvořanyEntry => "P1",
+            SignalId::PředvořanyExit => "P2",
+        }
+    }
 }
 
 impl TrainId {
     pub fn start(self) -> TrackId {
         match self {
-            TrainId::Red => TrackId::NováVesLeftStop,
-            TrainId::Blue => TrackId::NováVesRightStop,
+            TrainId::Pn1 => TrackId::NováVesLeftStop,
+            TrainId::Pn2 => TrackId::NováVesRightStop,
+        }
+    }
+
+    pub fn name(self) -> &'static str {
+        match self {
+            TrainId::Pn1 => "Pn 1",
+            TrainId::Pn2 => "Pn 2",
         }
     }
 }

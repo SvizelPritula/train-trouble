@@ -82,6 +82,16 @@ impl ZoneId {
             },
         }
     }
+
+    pub fn name(self) -> &'static str {
+        match self {
+            ZoneId::NováVes => "Nová Ves nad Spálou",
+            ZoneId::Kolnov => "Kolnov",
+            ZoneId::HorníMechoklaty => "Horní Mechoklaty",
+            ZoneId::DolníMechoklaty => "Dolní Mechoklaty",
+            ZoneId::Předvořany => "Předvořany",
+        }
+    }
 }
 
 impl TrainToubleGame {

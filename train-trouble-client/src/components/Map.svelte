@@ -1,4 +1,6 @@
 <script lang="ts">
+  import "@fontsource/noto-mono";
+
   export let occupied: Record<string, boolean>;
 </script>
 
@@ -189,7 +191,7 @@
     />
   </g>
 
-  <g class="text" font-family="'Noto Mono'">
+  <g class="text">
     <g class="title">
       <text x="235" y="50">Nová Ves nad Spálou</text>
       <text x="625" y="230">Předvořany</text>
@@ -228,7 +230,6 @@
   svg {
     width: 100%;
     height: 100%;
-    
   }
 
   .railway {
@@ -251,6 +252,7 @@
     fill: #fff;
     font-size: 12px;
     line-height: 1.25;
+    font-family: "Noto Mono", monospace;
   }
 
   .title {

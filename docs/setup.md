@@ -47,7 +47,13 @@ cargo build --release
 Sestavenou binárku najdete v cestě `./target/release/train-trouble`.
 
 Dále je potřeba sestavit front-end.
-Ve složce `train-trouble-client/` spusťte tyto dva příkazy:
+Ve složce `train-trouble-engine-client/` spustě tento příkaz:
+
+```sh
+npm install
+```
+
+Poté ve složce `train-trouble-client/` spusťte tyto dva příkazy:
 
 ```sh
 npm install

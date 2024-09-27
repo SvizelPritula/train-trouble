@@ -13,8 +13,9 @@ export function connect<Channel, View, Action>(
   onNewView: (view: View) => void,
   onConnectionChange: (connected: boolean) => void
 ): Connection<Action> {
-  let pendingActions: Map<string, [() => void, (reason: any) => void]> = new Map();
+  let pendingActions: Map<number, [() => void, (reason: any) => void]> = new Map();
   let currentSocket: WebSocket | null = null;
+  let nextId: number = 0;
 
   function processMessage(message: IncomingMessage<View>) {
     if (message.type == "state") {
@@ -77,7 +78,7 @@ export function connect<Channel, View, Action>(
 
   function submit(action: Action): Promise<void> {
     return new Promise((resolve, reject) => {
-      let id = crypto.randomUUID();
+      let id = nextId++;
 
       if (currentSocket == null)
         return reject(new SubmitError("not_connected"));
@@ -98,7 +99,7 @@ type OutgoingMessage<Channel, Action> = {
   channel: Channel
 } | {
   type: "submit",
-  id: string,
+  id: number,
   action: Action
 };
 
@@ -109,7 +110,7 @@ type IncomingMessage<View> = {
   state: View
 } | {
   type: "confirm",
-  id: string,
+  id: number,
   error: string | null
 } | {
   type: "error",

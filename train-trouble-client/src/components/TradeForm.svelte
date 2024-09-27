@@ -54,7 +54,7 @@
             />
           </td>
           <td><label for={`${train.id}-${id}`}>{name}</label></td>
-          <td>{load[id]}</td>
+          <td>{load[id]} kg</td>
         </tr>
       {/each}
     </tbody>

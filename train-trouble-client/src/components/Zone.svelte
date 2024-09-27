@@ -20,7 +20,7 @@
     <thead>
       <tr>
         <th>Komodita</th>
-        <th>Cena za jednotku</th>
+        <th>Cena za kilogram</th>
       </tr>
     </thead>
 

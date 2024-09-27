@@ -2,7 +2,8 @@ export type View = MapView | ZoneView;
 
 export interface MapView {
   type: "map",
-  occupied: Record<string, boolean>
+  occupied: Record<string, boolean>,
+  crash_cleanup_progress: number | null
 }
 
 export interface ZoneView {

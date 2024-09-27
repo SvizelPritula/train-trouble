@@ -1,7 +1,9 @@
 use std::process::Termination;
 
 use enum_map::EnumMap;
-use railroad::{Direction, RailwayState, SignalId, SwitchId, TrainId};
+use railroad::{
+    Direction, RailwayState, SignalId, SwitchId, TrainId, CRASH_PENALTY,
+};
 use resources::{Market, Resource};
 use serde::{Deserialize, Serialize};
 use train_trouble_engine::{run, ActionResult, Game};
@@ -66,12 +68,18 @@ impl Game for TrainToubleGame {
     fn tick(&mut self) {
         self.railway.tick();
         self.market.tick();
+
+        if self.railway.has_just_crashed() {
+            self.balance -= CRASH_PENALTY;
+            self.loads = EnumMap::default();
+        }
     }
 
     fn view(&mut self, channel: Self::CHANNEL) -> Self::VIEW {
         match channel {
             Channel::Map => View::Map {
                 occupied: self.railway.occupied(),
+                crash_cleanup_progress: self.railway.crash_cleanup_progress(),
             },
             Channel::Zone { zone } => View::Zone(view::zone(zone, self)),
         }

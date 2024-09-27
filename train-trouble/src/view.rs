@@ -55,7 +55,10 @@ pub struct RateView {
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
 pub enum View {
-    Map { occupied: EnumMap<TrackId, bool> },
+    Map {
+        occupied: EnumMap<TrackId, bool>,
+        crash_cleanup_progress: Option<u64>,
+    },
     Zone(ZoneView),
 }
 
@@ -118,6 +121,6 @@ fn train(id: TrainId, stopped: bool, game: &TrainToubleGame) -> TrainView {
         id,
         name: id.name(),
         stopped,
-        load: stopped.then_some(game.loads[id]),
+        load: (stopped && !game.railway.has_crash()).then_some(game.loads[id]),
     }
 }

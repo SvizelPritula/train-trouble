@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 use crate::tri_state::TriStateController;
 
 pub use map::{SignalId, SwitchId, TrackId, TrainId};
+pub use state::CRASH_PENALTY;
 
 mod map;
 mod state;
@@ -15,6 +16,8 @@ pub struct RailwayState {
     pub switches: EnumMap<SwitchId, SwitchState>,
     pub signals: EnumMap<SignalId, SignalState>,
     pub trains: EnumMap<TrainId, Location>,
+
+    pub crash_cleanup_remaining: Option<u64>,
 }
 
 #[derive(Debug, Clone, Copy)]

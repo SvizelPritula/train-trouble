@@ -1,9 +1,12 @@
 <script lang="ts">
+  import "@fontsource/noto-mono";
+
   import { onMount } from "svelte";
   import { connect } from "train-trouble-engine-client";
   import type { Channel } from "../lib/channels";
   import type { MapView } from "../lib/views";
   import Map from "./Map.svelte";
+  import CrashStatus from "./CrashStatus.svelte";
 
   let view: MapView | null = null;
   let connected: boolean = false;
@@ -22,6 +25,7 @@
 <main>
   {#if view != null}
     <Map occupied={view.occupied} />
+    <CrashStatus progress={view.crash_cleanup_progress} />
   {/if}
 </main>
 
@@ -31,5 +35,7 @@
     height: 100%;
     background-color: #000;
     display: flex;
+
+    position: relative;
   }
 </style>

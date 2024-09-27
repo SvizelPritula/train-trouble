@@ -1,6 +1,4 @@
 <script lang="ts">
-  import "@fontsource/noto-mono";
-
   export let occupied: Record<string, boolean>;
 </script>
 

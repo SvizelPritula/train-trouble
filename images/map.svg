@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="860mm"
+   height="440mm"
+   viewBox="0 0 860 440"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (1:1.3+202307231459+0e150ed6c4)"
+   sodipodi:docname="map.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.33852413"
+     inkscape:cx="1287.9436"
+     inkscape:cy="389.92789"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="mm"
+       originx="0"
+       originy="0"
+       spacingx="0.99999999"
+       spacingy="0.99999999"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="10"
+       dotted="false"
+       gridanglex="30"
+       gridanglez="30"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Rails"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 530,110 H 290.00002"
+       id="path12"
+       sodipodi:nodetypes="cc"
+       inkscape:label="to-nová-ves-left" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 300.00002,110.00001 9.99998,-10 v 20 z"
+       id="path14"
+       inkscape:label="to-nová-ves-left-signal" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 530,80.000001 -239.99998,1e-5"
+       id="path11"
+       sodipodi:nodetypes="cc"
+       inkscape:label="to-nová-ves-right" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 300.00002,80.000011 9.99998,-10 v 20 z"
+       id="path13"
+       inkscape:label="to-nová-ves-right-signal" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 290.00002,110.00001 h -140"
+       id="path17"
+       sodipodi:nodetypes="cc"
+       inkscape:label="nová-ves-left-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 160.00002,110.00001 9.99998,-10 v 20 z"
+       id="path18"
+       inkscape:label="nová-ves-left-stop-signal" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 290.00002,80.000011 h -140"
+       id="path15"
+       sodipodi:nodetypes="cc"
+       inkscape:label="nová-ves-right-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 160.00002,80.000011 9.99998,-10 v 20 z"
+       id="path16"
+       inkscape:label="nová-ves-right-stop-signal" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 140,80.000001 110,109.99999"
+       id="path20"
+       inkscape:label="nová-ves-left-switch-turn" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 140,109.99999 110,80.000001"
+       id="path19"
+       inkscape:label="nová-ves-right-switch-turn" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 150,80.000001 H 110"
+       id="path21"
+       sodipodi:nodetypes="cc"
+       inkscape:label="nová-ves-left-switch-straight" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 150,110 -40,-1e-5"
+       id="path22"
+       sodipodi:nodetypes="cc"
+       inkscape:label="nová-ves-right-switch-straight" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 110,110 -19.999999,-1e-5 -30,30.00002 V 230 l 30,30 H 190"
+       id="path23"
+       sodipodi:nodetypes="cccccc"
+       inkscape:label="to-horní-mechoklaty" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 179.99998,260 170,270 v -20 z"
+       id="path25"
+       inkscape:label="to-horní-mechoklaty-signal" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 190,260 H 330"
+       id="path26"
+       sodipodi:nodetypes="cc"
+       inkscape:label="horní-mechoklaty-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 320,260 -9.99998,10 v -20 z"
+       id="path27"
+       inkscape:label="horní-mechoklaty-stop-signal" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 110,80.000001 H 90.000001 l -60,59.999999 v 210 l 60,60 H 190"
+       id="path24"
+       sodipodi:nodetypes="cccccc"
+       inkscape:label="to-dolní-mechoklaty" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 179.99998,410 170,420 v -20 z"
+       id="path28"
+       inkscape:label="to-dolní-mechoklaty-signal" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 190,410 H 330"
+       id="path29"
+       sodipodi:nodetypes="cc"
+       inkscape:label="dolní-mechoklaty-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 319.99998,410 310,420 v -20 z"
+       id="path30"
+       inkscape:label="dolní-mechoklaty-stop-signal" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 390,379.99999 -30.00002,30"
+       id="path44"
+       inkscape:label="dolní-mechoklaty-switch-side" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 330,410 h 60"
+       id="path49"
+       sodipodi:nodetypes="cc"
+       inkscape:label="dolní-mechoklaty-switch-straight" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 330,260 H 480"
+       id="path37"
+       sodipodi:nodetypes="cc"
+       inkscape:label="to-předvorany-switch-left" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 390,379.99999 90,-90"
+       id="path45"
+       sodipodi:nodetypes="cc"
+       inkscape:label="to-předvorany-switch-right" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 570.00002,259.99999 480,260"
+       id="path46"
+       sodipodi:nodetypes="cc"
+       inkscape:label="předvorany-switch-straight" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 510,260 -30,29.99999"
+       id="path48"
+       inkscape:label="předvorany-switch-side" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 559.99998,260 550,270 v -20 z"
+       id="path31"
+       inkscape:label="předvorany-switch-signal" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 570,260 H 710"
+       id="path32"
+       sodipodi:nodetypes="cc"
+       inkscape:label="předvorany-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 700,260 -9.99998,10 v -20 z"
+       id="path33"
+       inkscape:label="předvorany-stop-signal" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 710.00001,260 h 30 l 60,-60 L 800,140.00001 769.99998,109.99999 h -29.99999"
+       id="path39"
+       sodipodi:nodetypes="cccccc"
+       inkscape:label="to-kolnov-left" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 750.00003,110.00001 9.99998,-10 v 20 z"
+       id="path4-2"
+       inkscape:label="to-kolnov-left-signal" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 390,410 h 380.00001 l 60,-60 -2e-5,-209.99999 -60.00001,-60.000009 h -29.99997"
+       id="path40"
+       sodipodi:nodetypes="cccccc"
+       inkscape:label="to-kolnov-right" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 750.00003,80.000011 9.99998,-10 v 20 z"
+       id="path3-5"
+       inkscape:label="to-kolnov-right-signal" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 710.00002,110 h 29.99999"
+       id="path7"
+       inkscape:label="kolnov-entry-switch-straight" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 710.00002,80.000011 740.00001,110"
+       id="path5"
+       inkscape:label="kolnov-entry-switch-side" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 710.00002,80.000011 h 29.99999"
+       id="path6"
+       inkscape:label="kolnov-entry-connection" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 710.00002,110 -150.00003,-1e-5"
+       id="path1"
+       sodipodi:nodetypes="cc"
+       inkscape:label="kolnov-left-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 580.00002,110.00001 9.99998,-10 v 20 z"
+       id="path4"
+       inkscape:label="kolnov-left-stop-signal" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 710.00002,80.000011 H 560"
+       id="path2"
+       sodipodi:nodetypes="cc"
+       inkscape:label="kolnov-right-stop" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 580.00002,80.000011 9.99998,-10 v 20 z"
+       id="path3"
+       inkscape:label="kolnov-right-stop-signal" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 559.99999,80.000001 H 530"
+       id="path10"
+       inkscape:label="kolnov-exit-switch-straight" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 559.99999,80.000001 530,109.99999"
+       id="path8"
+       inkscape:label="kolnov-exit-switch-side" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 559.99999,109.99999 H 530"
+       id="path9"
+       inkscape:label="kolnov-exit-connection" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Text">
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="235"
+       y="50"
+       id="text51"
+       inkscape:label="nová-ves-title"><tspan
+         sodipodi:role="line"
+         id="tspan51"
+         style="font-size:16px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="235"
+         y="50">Nová Ves nad Spálou</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="190"
+       y="100"
+       id="text53"
+       inkscape:label="nová-ves-rail-1"><tspan
+         sodipodi:role="line"
+         id="tspan53"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="190"
+         y="100">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="190"
+       y="70"
+       id="text54"
+       inkscape:label="nová-ves-rail-2"><tspan
+         sodipodi:role="line"
+         id="tspan54"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="190"
+         y="70">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="290"
+       y="100"
+       id="text55"
+       inkscape:label="nová-ves-signal-1"><tspan
+         sodipodi:role="line"
+         id="tspan55"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="290"
+         y="100">N1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="290"
+       y="70"
+       id="text56"
+       inkscape:label="nová-ves-signal-2"><tspan
+         sodipodi:role="line"
+         id="tspan56"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="290"
+         y="70">N2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="150"
+       y="100"
+       id="text55-0-8"
+       inkscape:label="nová-ves-signal-3"><tspan
+         sodipodi:role="line"
+         id="tspan55-6-7"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="150"
+         y="100">N3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="150"
+       y="70"
+       id="text55-0"
+       inkscape:label="nová-ves-signal-4"><tspan
+         sodipodi:role="line"
+         id="tspan55-6"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="150"
+         y="70">N4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="130"
+       y="122"
+       id="text57"
+       inkscape:label="nová-ves-switch-a"><tspan
+         sodipodi:role="line"
+         id="tspan57"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="130"
+         y="122">Na</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="130"
+       y="76"
+       id="text58"
+       inkscape:label="nová-ves-switch-b"><tspan
+         sodipodi:role="line"
+         id="tspan58"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="130"
+         y="76">Nb</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="670"
+       y="50"
+       id="text52"
+       inkscape:label="konlov-title"><tspan
+         sodipodi:role="line"
+         id="tspan52"
+         style="font-size:16px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="670"
+         y="50">Kolnov</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="610"
+       y="100"
+       id="text53-5"
+       inkscape:label="kolnov-rail-1"><tspan
+         sodipodi:role="line"
+         id="tspan53-0"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="610"
+         y="100">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="610"
+       y="70"
+       id="text54-3"
+       inkscape:label="kolnov-rail-2"><tspan
+         sodipodi:role="line"
+         id="tspan54-6"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="610"
+         y="70">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="740"
+       y="100"
+       id="text55-1"
+       inkscape:label="kolnov-signal-1"><tspan
+         sodipodi:role="line"
+         id="tspan55-0"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="740"
+         y="100">K1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="740"
+       y="70"
+       id="text56-6"
+       inkscape:label="kolnov-signal-2"><tspan
+         sodipodi:role="line"
+         id="tspan56-1"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="740"
+         y="70">K2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="570"
+       y="100"
+       id="text55-0-8-2"
+       inkscape:label="kolnov-signal-3"><tspan
+         sodipodi:role="line"
+         id="tspan55-6-7-0"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="570"
+         y="100">K3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="570"
+       y="70"
+       id="text55-0-6"
+       inkscape:label="kolnov-signal-4"><tspan
+         sodipodi:role="line"
+         id="tspan55-6-3"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="570"
+         y="70">K4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="730"
+       y="122"
+       id="text57-4"
+       inkscape:label="kolnov-switch-a"><tspan
+         sodipodi:role="line"
+         id="tspan57-8"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="730"
+         y="122">Ka</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="550"
+       y="76"
+       id="text57-4-6"
+       inkscape:label="kolnov-switch-b"><tspan
+         sodipodi:role="line"
+         id="tspan57-8-0"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="550"
+         y="76">Kb</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="245"
+       y="230"
+       id="text50"
+       inkscape:label="horní-mechoklaty-title"><tspan
+         sodipodi:role="line"
+         id="tspan50"
+         style="font-size:16px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="245"
+         y="230">Horní Mechoklaty</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="180"
+       y="250"
+       id="text55-6"
+       inkscape:label="horní-mechoklaty-signal-1"><tspan
+         sodipodi:role="line"
+         id="tspan55-2"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="180"
+         y="250">H1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="320"
+       y="250"
+       id="text59"
+       inkscape:label="horní-mechoklaty-signal-2"><tspan
+         sodipodi:role="line"
+         id="tspan59"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="320"
+         y="250">H2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="245"
+       y="380"
+       id="text49"
+       inkscape:label="dolní-mechoklaty-title"><tspan
+         sodipodi:role="line"
+         id="tspan49"
+         style="font-size:16px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="245"
+         y="380">Dolní Mechoklaty</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="180"
+       y="400"
+       id="text60"
+       inkscape:label="dolní-mechoklaty-signal-1"><tspan
+         sodipodi:role="line"
+         id="tspan60"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="180"
+         y="400">D1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="320"
+       y="400"
+       id="text61"
+       inkscape:label="dolní-mechoklaty-signal-2"><tspan
+         sodipodi:role="line"
+         id="tspan61"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="320"
+         y="400">D2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="360"
+       y="423"
+       id="text57-0"
+       inkscape:label="dolní-mechoklaty-switch-a"><tspan
+         sodipodi:role="line"
+         id="tspan57-7"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="360"
+         y="423">Da</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="625"
+       y="230"
+       id="text50-7"
+       inkscape:label="předvorany-title"><tspan
+         sodipodi:role="line"
+         id="tspan50-0"
+         style="font-size:16px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="625"
+         y="230">Předvorany</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="560"
+       y="250"
+       id="text62"
+       inkscape:label="předvorany-signal-1"><tspan
+         sodipodi:role="line"
+         id="tspan62"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="560"
+         y="250">P1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;line-height:1.25;font-family:'Noto Mono';-inkscape-font-specification:'Noto Mono, Normal';stroke-width:0.264583"
+       x="700"
+       y="250"
+       id="text63"
+       inkscape:label="předvorany-signal-2"><tspan
+         sodipodi:role="line"
+         id="tspan63"
+         style="font-size:12px;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="700"
+         y="250">P2</tspan></text>
+  </g>
+</svg>

@@ -6,137 +6,202 @@ use super::{TrackEnding, TrackInfo};
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum TrackId {
-    MainBeginning,
-    MainStop,
-    MainSidingIn,
-    MainSidingLeft,
-    MainSidingRight,
-    MainSidingOut,
-    MainEnd,
+    ToNováVesLeft,
+    ToNováVesRight,
+    NováVesLeftStop,
+    NováVesRightStop,
+    NováVesLeftSwitch,
+    NováVesRightSwitch,
 
-    BottomTo,
-    BottomStop,
-    BottomBypassSwitch,
-    BottomBypass,
-    BottomYard,
-    BottomYardFrom,
+    ToHorníMechoklaty,
+    HorníMechoklatyStop,
 
-    TopTo,
-    TopFactory,
-    TopFrom,
+    ToDolníMechoklaty,
+    DolníMechoklatyStop,
+    DolníMechoklatySwitch,
+
+    ToPředvoranySwitchLeft,
+    ToPředvoranySwitchRight,
+    PředvoranySwitch,
+    PředvořanyStop,
+
+    ToKolnovLeft,
+    ToKolnovRight,
+    KolnovEntrySwitch,
+    KolnovEntryConnection,
+    KolnovRightStop,
+    KolnovLeftStop,
+    KolnovExitSwitch,
+    KolnovExitConnection,
 }
 
 impl TrackId {
     pub fn info(self) -> TrackInfo {
         match self {
-            TrackId::MainBeginning => TrackInfo {
-                length: 30,
-                ending: TrackEnding::Track {
-                    next: TrackId::MainStop,
+            TrackId::ToNováVesLeft => TrackInfo {
+                length: 160,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::NováVesLeftEntry,
+                    next: TrackId::NováVesLeftStop,
                 },
             },
-            TrackId::MainStop => TrackInfo {
+            TrackId::ToNováVesRight => TrackInfo {
+                length: 160,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::NováVesRightEntry,
+                    next: TrackId::NováVesRightStop,
+                },
+            },
+            TrackId::NováVesLeftStop => TrackInfo {
                 length: 100,
                 ending: TrackEnding::Signal {
-                    next: TrackId::MainSidingIn,
-                    signal: SignalId::MainStop,
+                    signal: SignalId::NováVesLeftExit,
+                    next: TrackId::NováVesLeftSwitch,
                 },
             },
-            TrackId::MainSidingIn => TrackInfo {
+            TrackId::NováVesRightStop => TrackInfo {
+                length: 100,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::NováVesRightExit,
+                    next: TrackId::NováVesRightSwitch,
+                },
+            },
+            TrackId::NováVesLeftSwitch => TrackInfo {
                 length: 20,
                 ending: TrackEnding::Switch {
-                    switch: SwitchId::MainSiding,
-                    left: TrackId::MainSidingLeft,
-                    right: TrackId::MainSidingRight,
+                    switch: SwitchId::NováVesLeft,
+                    left: TrackId::ToHorníMechoklaty,
+                    right: TrackId::ToDolníMechoklaty,
                 },
             },
-            TrackId::MainSidingLeft => TrackInfo {
-                length: 50,
-                ending: TrackEnding::Signal {
-                    next: TrackId::MainSidingOut,
-                    signal: SignalId::MainSidingLeft,
-                },
-            },
-            TrackId::MainSidingRight => TrackInfo {
-                length: 50,
-                ending: TrackEnding::Signal {
-                    next: TrackId::MainSidingOut,
-                    signal: SignalId::MainSidingRight,
-                },
-            },
-            TrackId::MainSidingOut => TrackInfo {
-                length: 20,
-                ending: TrackEnding::Track {
-                    next: TrackId::MainEnd,
-                },
-            },
-            TrackId::MainEnd => TrackInfo {
+            TrackId::NováVesRightSwitch => TrackInfo {
                 length: 20,
                 ending: TrackEnding::Switch {
-                    switch: SwitchId::MainEnd,
-                    left: TrackId::BottomTo,
-                    right: TrackId::TopTo,
+                    switch: SwitchId::NováVesRight,
+                    left: TrackId::ToHorníMechoklaty,
+                    right: TrackId::ToDolníMechoklaty,
                 },
             },
 
-            TrackId::BottomTo => TrackInfo {
+            TrackId::ToHorníMechoklaty => TrackInfo {
+                length: 200,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::HorníMechoklatyEntry,
+                    next: TrackId::HorníMechoklatyStop,
+                },
+            },
+            TrackId::HorníMechoklatyStop => TrackInfo {
+                length: 100,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::HorníMechoklatyExit,
+                    next: TrackId::ToPředvoranySwitchLeft,
+                },
+            },
+
+            TrackId::ToDolníMechoklaty => TrackInfo {
+                length: 320,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::DolníMechoklatyEntry,
+                    next: TrackId::DolníMechoklatyStop,
+                },
+            },
+            TrackId::DolníMechoklatyStop => TrackInfo {
+                length: 100,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::DolníMechoklatyExit,
+                    next: TrackId::DolníMechoklatySwitch,
+                },
+            },
+            TrackId::DolníMechoklatySwitch => TrackInfo {
+                length: 20,
+                ending: TrackEnding::Switch {
+                    switch: SwitchId::DolníMechoklaty,
+                    left: TrackId::ToPředvoranySwitchRight,
+                    right: TrackId::ToKolnovRight,
+                },
+            },
+
+            TrackId::ToPředvoranySwitchLeft => TrackInfo {
+                length: 140,
+                ending: TrackEnding::Track {
+                    next: TrackId::PředvoranySwitch,
+                },
+            },
+            TrackId::ToPředvoranySwitchRight => TrackInfo {
                 length: 200,
                 ending: TrackEnding::Track {
-                    next: TrackId::BottomStop,
+                    next: TrackId::PředvoranySwitch,
                 },
             },
-            TrackId::BottomStop => TrackInfo {
-                length: 100,
-                ending: TrackEnding::Signal {
-                    next: TrackId::BottomBypassSwitch,
-                    signal: SignalId::BottomSwitch,
-                },
-            },
-            TrackId::BottomBypassSwitch => TrackInfo {
+            TrackId::PředvoranySwitch => TrackInfo {
                 length: 20,
-                ending: TrackEnding::Switch {
-                    switch: SwitchId::BottomBypass,
-                    left: TrackId::BottomBypass,
-                    right: TrackId::BottomYard,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::PředvoranyEntry,
+                    next: TrackId::PředvořanyStop,
                 },
             },
-            TrackId::BottomBypass => TrackInfo {
-                length: 300,
-                ending: TrackEnding::Track {
-                    next: TrackId::MainBeginning,
-                },
-            },
-            TrackId::BottomYard => TrackInfo {
+            TrackId::PředvořanyStop => TrackInfo {
                 length: 100,
                 ending: TrackEnding::Signal {
-                    signal: SignalId::BottomYard,
-                    next: TrackId::BottomYardFrom,
-                },
-            },
-            TrackId::BottomYardFrom => TrackInfo {
-                length: 280,
-                ending: TrackEnding::Track {
-                    next: TrackId::MainBeginning,
+                    signal: SignalId::PředvoranyExit,
+                    next: TrackId::ToKolnovLeft,
                 },
             },
 
-            TrackId::TopTo => TrackInfo {
-                length: 400,
-                ending: TrackEnding::Track {
-                    next: TrackId::TopFactory,
+            TrackId::ToKolnovLeft => TrackInfo {
+                length: 200,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::KolnovLeftEntry,
+                    next: TrackId::KolnovEntrySwitch,
                 },
             },
-            TrackId::TopFactory => TrackInfo {
+            TrackId::ToKolnovRight => TrackInfo {
+                length: 400,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::KolnovRightEntry,
+                    next: TrackId::KolnovEntryConnection,
+                },
+            },
+            TrackId::KolnovEntrySwitch => TrackInfo {
+                length: 20,
+                ending: TrackEnding::Switch {
+                    switch: SwitchId::KolnovEntry,
+                    left: TrackId::KolnovLeftStop,
+                    right: TrackId::KolnovRightStop,
+                },
+            },
+            TrackId::KolnovEntryConnection => TrackInfo {
+                length: 20,
+                ending: TrackEnding::Track {
+                    next: TrackId::KolnovRightStop,
+                },
+            },
+            TrackId::KolnovLeftStop => TrackInfo {
                 length: 100,
                 ending: TrackEnding::Signal {
-                    signal: SignalId::TopFactory,
-                    next: TrackId::TopFrom,
+                    signal: SignalId::KolnovLeftExit,
+                    next: TrackId::KolnovExitConnection,
                 },
             },
-            TrackId::TopFrom => TrackInfo {
-                length: 160,
+            TrackId::KolnovRightStop => TrackInfo {
+                length: 100,
+                ending: TrackEnding::Signal {
+                    signal: SignalId::KolnovRightExit,
+                    next: TrackId::KolnovExitSwitch,
+                },
+            },
+            TrackId::KolnovExitSwitch => TrackInfo {
+                length: 20,
+                ending: TrackEnding::Switch {
+                    switch: SwitchId::KolnovExit,
+                    left: TrackId::ToNováVesLeft,
+                    right: TrackId::ToNováVesRight,
+                },
+            },
+            TrackId::KolnovExitConnection => TrackInfo {
+                length: 20,
                 ending: TrackEnding::Track {
-                    next: TrackId::MainBeginning,
+                    next: TrackId::ToNováVesLeft,
                 },
             },
         }
@@ -146,32 +211,50 @@ impl TrackId {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum SwitchId {
-    MainSiding,
-    MainEnd,
-    BottomBypass,
+    NováVesLeft,
+    NováVesRight,
+
+    KolnovEntry,
+    KolnovExit,
+
+    DolníMechoklaty,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum SignalId {
-    MainStop,
-    MainSidingLeft,
-    MainSidingRight,
-    BottomSwitch,
-    BottomYard,
-    TopFactory,
+    NováVesLeftEntry,
+    NováVesRightEntry,
+    NováVesLeftExit,
+    NováVesRightExit,
+
+    KolnovLeftEntry,
+    KolnovRightEntry,
+    KolnovLeftExit,
+    KolnovRightExit,
+
+    HorníMechoklatyEntry,
+    HorníMechoklatyExit,
+
+    DolníMechoklatyEntry,
+    DolníMechoklatyExit,
+
+    PředvoranyEntry,
+    PředvoranyExit,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum TrainId {
-    Main,
+    Red,
+    Blue,
 }
 
 impl TrainId {
     pub fn start(self) -> TrackId {
         match self {
-            TrainId::Main => TrackId::MainStop,
+            TrainId::Red => TrackId::NováVesLeftStop,
+            TrainId::Blue => TrackId::NováVesRightStop,
         }
     }
 }

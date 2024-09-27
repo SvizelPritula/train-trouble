@@ -16,35 +16,69 @@ pub struct ZoneInfo {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Enum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum ZoneId {
-    Main,
-    Bottom,
-    Top,
+    NováVes,
+    Kolnov,
+    HorníMechoklaty,
+    DolníMechoklaty,
+    Předvorany,
 }
 
 impl ZoneId {
     pub fn info(self) -> ZoneInfo {
         match self {
-            ZoneId::Main => ZoneInfo {
-                neighbours: &[ZoneId::Bottom, ZoneId::Top],
-                switches: &[SwitchId::MainSiding, SwitchId::MainEnd],
-                signals: &[
-                    SignalId::MainStop,
-                    SignalId::MainSidingLeft,
-                    SignalId::MainSidingRight,
+            ZoneId::NováVes => ZoneInfo {
+                neighbours: &[
+                    ZoneId::HorníMechoklaty,
+                    ZoneId::DolníMechoklaty,
+                    ZoneId::Kolnov,
                 ],
-                platforms: &[SignalId::MainSidingLeft, SignalId::MainSidingRight],
+                switches: &[SwitchId::NováVesLeft, SwitchId::NováVesRight],
+                signals: &[
+                    SignalId::NováVesLeftEntry,
+                    SignalId::NováVesRightEntry,
+                    SignalId::NováVesLeftExit,
+                    SignalId::NováVesRightExit,
+                ],
+                platforms: &[SignalId::NováVesLeftExit, SignalId::NováVesRightExit],
             },
-            ZoneId::Bottom => ZoneInfo {
-                neighbours: &[ZoneId::Main],
-                switches: &[SwitchId::BottomBypass],
-                signals: &[SignalId::BottomYard, SignalId::BottomSwitch],
-                platforms: &[SignalId::BottomYard],
+            ZoneId::Kolnov => ZoneInfo {
+                neighbours: &[ZoneId::NováVes, ZoneId::Předvorany],
+                switches: &[SwitchId::KolnovEntry, SwitchId::KolnovExit],
+                signals: &[
+                    SignalId::KolnovLeftEntry,
+                    SignalId::KolnovRightEntry,
+                    SignalId::KolnovLeftExit,
+                    SignalId::KolnovRightExit,
+                ],
+                platforms: &[SignalId::KolnovLeftExit, SignalId::KolnovRightExit],
             },
-            ZoneId::Top => ZoneInfo {
-                neighbours: &[ZoneId::Main],
+            ZoneId::HorníMechoklaty => ZoneInfo {
+                neighbours: &[ZoneId::NováVes, ZoneId::Předvorany],
                 switches: &[],
-                signals: &[SignalId::TopFactory],
-                platforms: &[SignalId::TopFactory],
+                signals: &[
+                    SignalId::HorníMechoklatyEntry,
+                    SignalId::HorníMechoklatyExit,
+                ],
+                platforms: &[SignalId::HorníMechoklatyExit],
+            },
+            ZoneId::DolníMechoklaty => ZoneInfo {
+                neighbours: &[ZoneId::NováVes, ZoneId::Předvorany],
+                switches: &[SwitchId::DolníMechoklaty],
+                signals: &[
+                    SignalId::DolníMechoklatyEntry,
+                    SignalId::DolníMechoklatyExit,
+                ],
+                platforms: &[SignalId::DolníMechoklatyExit],
+            },
+            ZoneId::Předvorany => ZoneInfo {
+                neighbours: &[
+                    ZoneId::Kolnov,
+                    ZoneId::HorníMechoklaty,
+                    ZoneId::DolníMechoklaty,
+                ],
+                switches: &[],
+                signals: &[SignalId::PředvoranyEntry, SignalId::PředvoranyExit],
+                platforms: &[SignalId::PředvoranyExit],
             },
         }
     }

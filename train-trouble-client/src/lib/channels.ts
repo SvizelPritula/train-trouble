@@ -1,4 +1,4 @@
-export type Zone = "main" | "bottom" | "top";
+export type Zone = "nová-ves" | "kolnov" | "horní-mechoklaty" | "dolní-mechoklaty" | "předvorany";
 
 export type Channel = {
   type: "map"
@@ -9,7 +9,9 @@ export type Channel = {
 
 export const hashToChannel: Record<string, Channel> = {
   "#map": { type: "map" },
-  "#main": { type: "zone", zone: "main" },
-  "#bottom": { type: "zone", zone: "bottom" },
-  "#top": { type: "zone", zone: "top" },
+  "#nova-ves": { type: "zone", zone: "nová-ves" },
+  "#kolnov": { type: "zone", zone: "kolnov" },
+  "#horni-mechoklaty": { type: "zone", zone: "horní-mechoklaty" },
+  "#dolni-mechoklaty": { type: "zone", zone: "dolní-mechoklaty" },
+  "#predvorany": { type: "zone", zone: "předvorany" },
 };

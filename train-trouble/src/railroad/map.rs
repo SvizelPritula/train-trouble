@@ -23,7 +23,7 @@ pub enum TrackId {
     ToPředvoranySwitchLeft,
     ToPředvoranySwitchRight,
     PředvoranySwitch,
-    PředvořanyStop,
+    PředvoranyStop,
 
     ToKolnovLeft,
     ToKolnovRight,
@@ -137,10 +137,10 @@ impl TrackId {
                 length: 20,
                 ending: TrackEnding::Signal {
                     signal: SignalId::PředvoranyEntry,
-                    next: TrackId::PředvořanyStop,
+                    next: TrackId::PředvoranyStop,
                 },
             },
-            TrackId::PředvořanyStop => TrackInfo {
+            TrackId::PředvoranyStop => TrackInfo {
                 length: 100,
                 ending: TrackEnding::Signal {
                     signal: SignalId::PředvoranyExit,

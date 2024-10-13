@@ -15,7 +15,8 @@ use super::Resource;
 const MIN_RATE: u64 = 100;
 const MAX_RATE: u64 = 1000;
 
-const DEFAULT_RATE: u64 = 500;
+const INITIAL_RATE_RANGE: RangeInclusive<u64> = 400..=600;
+const INITIAL_NOISE_RANGE: RangeInclusive<i64> = -10..=10;
 
 const SEED: u64 = 0x4814ae3d;
 
@@ -90,7 +91,7 @@ impl Market {
             for rate in rates.values_mut() {
                 let delta = self.rng.gen_range(NOISE_RANGE);
 
-                *rate = min(rate.saturating_add_signed(delta), MAX_RATE);
+                *rate = rate.saturating_add_signed(delta);
                 *rate = min(*rate, MAX_RATE);
                 *rate = max(*rate, MIN_RATE);
             }
@@ -118,13 +119,32 @@ impl Market {
             dec_rate
         }
     }
+
+    fn initial_rates(rng: &mut Rng) -> EnumMap<ZoneId, EnumMap<Resource, u64>> {
+        let mut base_rates = EnumMap::default();
+
+        for rate in base_rates.values_mut() {
+            *rate = rng.gen_range(INITIAL_RATE_RANGE);
+        }
+
+        let mut rates = EnumMap::from_fn(|_| base_rates);
+
+        for rate in rates.values_mut().flat_map(|r| r.values_mut()) {
+            *rate = rate.saturating_add_signed(rng.gen_range(INITIAL_NOISE_RANGE));
+        }
+
+        rates
+    }
 }
 
 impl Default for Market {
     fn default() -> Self {
+        let mut rng = Rng::seed_from_u64(SEED);
+        let rates = Self::initial_rates(&mut rng);
+
         Self {
-            rates: EnumMap::from_fn(|_| EnumMap::from_fn(|_| DEFAULT_RATE)),
-            rng: Rng::seed_from_u64(SEED),
+            rates,
+            rng,
             update_interval: Interval::default(),
             updates_until_event: *UPDATES_PER_EVENT.start(),
         }

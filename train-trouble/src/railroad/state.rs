@@ -4,7 +4,7 @@ use super::{map::TrainId, Direction, Location, RailwayState, SignalId, TrackEndi
 
 const CRASH_DISTANCE: u64 = 20;
 pub const CRASH_CLEANUP_TIME: u64 = 60 * 20;
-pub const CRASH_PENALTY: i64 = 50_000;
+pub const CRASH_PENALTY: i64 = 30_000;
 
 impl RailwayState {
     fn trace(&self, mut location: Location, mut distance: u64) -> Location {

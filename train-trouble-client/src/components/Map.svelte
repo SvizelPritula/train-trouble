@@ -4,64 +4,58 @@
 
 <svg viewBox="0 0 860 440" version="1.1">
   <g class="railway">
+    <path d="M 530,110 H 290" class:occupied={occupied["to-nová-ves-left"]} />
     <path
-      d="M 530,110 H 290.00002"
-      class:occupied={occupied["to-nová-ves-left"]}
-    />
-    <path
-      d="m 300.00002,110.00001 9.99998,-10 v 20 z"
+      d="m 300,110 10,-10 v 20 z"
       class:occupied={occupied["to-nová-ves-left"]}
       class="signal"
     />
+    <path d="m 530,80 -240,0" class:occupied={occupied["to-nová-ves-right"]} />
     <path
-      d="m 530,80.000001 -239.99998,1e-5"
-      class:occupied={occupied["to-nová-ves-right"]}
-    />
-    <path
-      d="m 300.00002,80.000011 9.99998,-10 v 20 z"
+      d="m 300,80 10,-10 v 20 z"
       class:occupied={occupied["to-nová-ves-right"]}
       class="signal"
     />
     <path
-      d="m 290.00002,110.00001 h -140"
+      d="m 290,110 h -140"
       class:occupied={occupied["nová-ves-left-stop"]}
     />
     <path
-      d="m 160.00002,110.00001 9.99998,-10 v 20 z"
+      d="m 160,110 10,-10 v 20 z"
       class:occupied={occupied["nová-ves-left-stop"]}
       class="signal"
     />
     <path
-      d="m 290.00002,80.000011 h -140"
+      d="m 290,80 h -140"
       class:occupied={occupied["nová-ves-right-stop"]}
     />
     <path
-      d="m 160.00002,80.000011 9.99998,-10 v 20 z"
+      d="m 160,80 10,-10 v 20 z"
       class:occupied={occupied["nová-ves-right-stop"]}
       class="signal"
     />
     <path
-      d="M 140,80.000001 110,109.99999"
+      d="M 140,80 110,110"
       class:occupied={occupied["nová-ves-right-switch"]}
     />
     <path
-      d="M 140,109.99999 110,80.000001"
+      d="M 140,110 110,80"
       class:occupied={occupied["nová-ves-left-switch"]}
     />
     <path
-      d="M 150,80.000001 H 110"
+      d="M 150,80 H 110"
       class:occupied={occupied["nová-ves-right-switch"]}
     />
     <path
-      d="m 150,110 -40,-1e-5"
+      d="m 150,110 -40,0"
       class:occupied={occupied["nová-ves-left-switch"]}
     />
     <path
-      d="m 110,110 -19.999999,-1e-5 -30,30.00002 V 230 l 30,30 H 190"
+      d="m 110,110 -20,0 -30,30 V 230 l 30,30 H 190"
       class:occupied={occupied["to-horní-mechoklaty"]}
     />
     <path
-      d="M 179.99998,260 170,270 v -20 z"
+      d="M 180,260 170,270 v -20 z"
       class:occupied={occupied["to-horní-mechoklaty"]}
       class="signal"
     />
@@ -70,16 +64,16 @@
       class:occupied={occupied["horní-mechoklaty-stop"]}
     />
     <path
-      d="m 320,260 -9.99998,10 v -20 z"
+      d="m 320,260 -10,10 v -20 z"
       class:occupied={occupied["horní-mechoklaty-stop"]}
       class="signal"
     />
     <path
-      d="M 110,80.000001 H 90.000001 l -60,59.999999 v 210 l 60,60 H 190"
+      d="M 110,80 H 90 l -60,60 v 210 l 60,60 H 190"
       class:occupied={occupied["to-dolní-mechoklaty"]}
     />
     <path
-      d="M 179.99998,410 170,420 v -20 z"
+      d="M 180,410 170,420 v -20 z"
       class:occupied={occupied["to-dolní-mechoklaty"]}
       class="signal"
     />
@@ -88,12 +82,12 @@
       class:occupied={occupied["dolní-mechoklaty-stop"]}
     />
     <path
-      d="M 319.99998,410 310,420 v -20 z"
+      d="M 320,410 310,420 v -20 z"
       class:occupied={occupied["dolní-mechoklaty-stop"]}
       class="signal"
     />
     <path
-      d="m 390,379.99999 -30.00002,30"
+      d="m 390,380 -30,30"
       class:occupied={occupied["dolní-mechoklaty-switch"]}
     />
     <path
@@ -105,86 +99,71 @@
       class:occupied={occupied["to-předvořany-switch-left"]}
     />
     <path
-      d="m 390,379.99999 90,-90"
+      d="m 390,380 90,-90"
       class:occupied={occupied["to-předvořany-switch-right"]}
     />
     <path
-      d="M 570.00002,259.99999 480,260"
+      d="M 570,260 480,260"
       class:occupied={occupied["předvořany-switch"]}
     />
+    <path d="m 510,260 -30,30" class:occupied={occupied["předvořany-switch"]} />
     <path
-      d="m 510,260 -30,29.99999"
-      class:occupied={occupied["předvořany-switch"]}
-    />
-    <path
-      d="M 559.99998,260 550,270 v -20 z"
+      d="M 560,260 550,270 v -20 z"
       class:occupied={occupied["předvořany-switch"]}
       class="signal"
     />
     <path d="M 570,260 H 710" class:occupied={occupied["předvořany-stop"]} />
     <path
-      d="m 700,260 -9.99998,10 v -20 z"
+      d="m 700,260 -10,10 v -20 z"
       class:occupied={occupied["předvořany-stop"]}
       class="signal"
     />
     <path
-      d="m 710.00001,260 h 30 l 60,-60 L 800,140.00001 769.99998,109.99999 h -29.99999"
+      d="m 710,260 h 30 l 60,-60 L 800,140 770,110 h -30"
       class:occupied={occupied["to-kolnov-left"]}
     />
     <path
-      d="m 750.00003,110.00001 9.99998,-10 v 20 z"
+      d="m 750,110 10,-10 v 20 z"
       class:occupied={occupied["to-kolnov-left"]}
       class="signal"
     />
     <path
-      d="m 390,410 h 380.00001 l 60,-60 -2e-5,-209.99999 -60.00001,-60.000009 h -29.99997"
+      d="m 390,410 h 380 l 60,-60 0,-210 -60,-60 h -30"
       class:occupied={occupied["to-kolnov-right"]}
     />
     <path
-      d="m 750.00003,80.000011 9.99998,-10 v 20 z"
+      d="m 750,80 10,-10 v 20 z"
       class:occupied={occupied["to-kolnov-right"]}
       class="signal"
     />
+    <path d="m 710,110 h 30" class:occupied={occupied["kolnov-entry-switch"]} />
     <path
-      d="m 710.00002,110 h 29.99999"
+      d="M 710,80 740,110"
       class:occupied={occupied["kolnov-entry-switch"]}
     />
     <path
-      d="M 710.00002,80.000011 740.00001,110"
-      class:occupied={occupied["kolnov-entry-switch"]}
-    />
-    <path
-      d="m 710.00002,80.000011 h 29.99999"
+      d="m 710,80 h 30"
       class:occupied={occupied["kolnov-entry-connection"]}
     />
+    <path d="m 710,110 -150,0" class:occupied={occupied["kolnov-left-stop"]} />
     <path
-      d="m 710.00002,110 -150.00003,-1e-5"
-      class:occupied={occupied["kolnov-left-stop"]}
-    />
-    <path
-      d="m 580.00002,110.00001 9.99998,-10 v 20 z"
+      d="m 580,110 10,-10 v 20 z"
       class:occupied={occupied["kolnov-left-stop"]}
       class="signal"
     />
+    <path d="M 710,80 H 560" class:occupied={occupied["kolnov-right-stop"]} />
     <path
-      d="M 710.00002,80.000011 H 560"
-      class:occupied={occupied["kolnov-right-stop"]}
-    />
-    <path
-      d="m 580.00002,80.000011 9.99998,-10 v 20 z"
+      d="m 580,80 10,-10 v 20 z"
       class:occupied={occupied["kolnov-right-stop"]}
       class="signal"
     />
+    <path d="M 560,80 H 530" class:occupied={occupied["kolnov-exit-switch"]} />
     <path
-      d="M 559.99999,80.000001 H 530"
+      d="M 560,80 530,110"
       class:occupied={occupied["kolnov-exit-switch"]}
     />
     <path
-      d="M 559.99999,80.000001 530,109.99999"
-      class:occupied={occupied["kolnov-exit-switch"]}
-    />
-    <path
-      d="M 559.99999,109.99999 H 530"
+      d="M 560,110 H 530"
       class:occupied={occupied["kolnov-exit-connection"]}
     />
   </g>

@@ -1,0 +1,8 @@
+<svg version="1.1" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" />
+      <feComposite in2="SourceGraphic" operator="arithmetic" k2="0.33" k3="1" />
+    </filter>
+  </defs>
+</svg>

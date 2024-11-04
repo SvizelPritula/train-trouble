@@ -33,9 +33,11 @@
   main {
     width: 100%;
     height: 100%;
-    background-color: #000;
     display: flex;
 
     position: relative;
+
+    background-color: #000;
+    filter: url("../styles/filters.svg#glow");
   }
 </style>

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { teams, type Team } from "../lib/channels";
+  import { storeTeam } from "../lib/storage";
 
   export let select: (team: Team) => void;
 
   let team: Team | null;
 
   function submit() {
+    storeTeam(team!);
     select(team!);
   }
 </script>
@@ -33,7 +35,7 @@
   main {
     max-width: 15cm;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 1rem;
   }
 
   h1 {

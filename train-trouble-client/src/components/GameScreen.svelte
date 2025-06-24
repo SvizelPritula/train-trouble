@@ -72,7 +72,7 @@
   main {
     max-width: 20cm;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 1rem;
   }
 
   .loading {

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { hashToRoute, type Route, type Team } from "../lib/channels";
+  import { loadTeam } from "../lib/storage";
   import GameScreen from "./GameScreen.svelte";
   import MapScreen from "./MapScreen.svelte";
   import TeamSelect from "./TeamSelect.svelte";
@@ -8,7 +9,7 @@
   let route: Route | null;
   $: route = hashToRoute[hash] ?? null;
 
-  let team: Team | null = null;
+  let team: Team | null = loadTeam();
 </script>
 
 <svelte:window on:hashchange={() => (hash = window.location.hash)} />

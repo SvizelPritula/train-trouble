@@ -5,7 +5,7 @@ use crate::{
     railroad::{Direction, SignalId, SwitchId, TrackId, TrainId},
     resources::Resource,
     zones::{ZoneId, ZoneInfo},
-    TrainToubleGame,
+    Team, TrainToubleGame,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize)]
@@ -53,16 +53,19 @@ pub struct RateView {
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize)]
+pub struct Map {
+    pub occupied: EnumMap<TrackId, bool>,
+    pub crash_cleanup_progress: Option<u64>,
+}
+
+#[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "kebab-case", tag = "type")]
 pub enum View {
-    Map {
-        occupied: EnumMap<TrackId, bool>,
-        crash_cleanup_progress: Option<u64>,
-    },
+    Map { teams: EnumMap<Team, Map> },
     Zone(ZoneView),
 }
 
-pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
+pub fn zone(team: Team, id: ZoneId, game: &TrainToubleGame) -> ZoneView {
     let ZoneInfo {
         signals,
         switches,
@@ -74,9 +77,12 @@ pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
 
     ZoneView {
         name: id.name(),
-        switches: switches.iter().map(|&id| switch(id, game)).collect(),
-        signals: signals.iter().map(|&id| signal(id, game)).collect(),
-        platforms: platforms.iter().map(|&id| platform(id, game)).collect(),
+        switches: switches.iter().map(|&id| switch(team, id, game)).collect(),
+        signals: signals.iter().map(|&id| signal(team, id, game)).collect(),
+        platforms: platforms
+            .iter()
+            .map(|&id| platform(team, id, game))
+            .collect(),
         rates: rates
             .into_iter()
             .map(|(id, rate)| RateView {
@@ -85,41 +91,42 @@ pub fn zone(id: ZoneId, game: &TrainToubleGame) -> ZoneView {
                 rate,
             })
             .collect(),
-        balance: game.balance,
+        balance: game.teams[team].balance,
     }
 }
 
-fn switch(id: SwitchId, game: &TrainToubleGame) -> SwitchView {
+fn switch(team: Team, id: SwitchId, game: &TrainToubleGame) -> SwitchView {
     SwitchView {
         id,
         name: id.name(),
-        direction: game.railway.switches[id].direction.tri_state(),
+        direction: game.teams[team].railway.switches[id].direction.tri_state(),
     }
 }
 
-fn signal(id: SignalId, game: &TrainToubleGame) -> SignalView {
+fn signal(team: Team, id: SignalId, game: &TrainToubleGame) -> SignalView {
     SignalView {
         id,
         name: id.name(),
-        clear: game.railway.signals[id].is_clear.tri_state(),
+        clear: game.teams[team].railway.signals[id].is_clear.tri_state(),
     }
 }
 
-fn platform(id: SignalId, game: &TrainToubleGame) -> PlatformView {
+fn platform(team: Team, id: SignalId, game: &TrainToubleGame) -> PlatformView {
     PlatformView {
-        trains: game
+        trains: game.teams[team]
             .railway
             .trains_at_signal(id)
-            .map(|(id, stopped)| train(id, stopped, game))
+            .map(|(id, stopped)| train(team, id, stopped, game))
             .collect(),
     }
 }
 
-fn train(id: TrainId, stopped: bool, game: &TrainToubleGame) -> TrainView {
+fn train(team: Team, id: TrainId, stopped: bool, game: &TrainToubleGame) -> TrainView {
     TrainView {
         id,
         name: id.name(),
         stopped,
-        load: (stopped && !game.railway.has_crash()).then_some(game.loads[id]),
+        load: (stopped && !game.teams[team].railway.has_crash())
+            .then_some(game.teams[team].loads[id]),
     }
 }

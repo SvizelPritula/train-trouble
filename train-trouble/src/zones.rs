@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     railroad::{SignalId, SwitchId, TrainId},
-    TrainToubleGame,
+    TeamState,
 };
 
 pub struct ZoneInfo {
@@ -94,7 +94,7 @@ impl ZoneId {
     }
 }
 
-impl TrainToubleGame {
+impl TeamState {
     pub fn train_in_zone(&self, train: TrainId, zone: ZoneId) -> bool {
         zone.info()
             .platforms

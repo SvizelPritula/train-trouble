@@ -24,10 +24,10 @@
 
 <main>
   {#if view != null}
-    {#each teams as { id, name } (id)}
+    {#each teams as { id, color } (id)}
       <div class="map">
-        <Map occupied={view.teams[id].occupied} />
-        <CrashStatus progress={view.teams[id].crash_cleanup_progress} />
+        <Map occupied={view.teams[id].occupied} {color} />
+        <CrashStatus progress={view.teams[id].crash_cleanup_progress} {color} />
       </div>
     {/each}
   {/if}

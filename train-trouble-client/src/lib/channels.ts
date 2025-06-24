@@ -28,9 +28,10 @@ export const hashToRoute: Record<string, Route> = {
 export interface TeamInfo {
   id: Team,
   name: string,
+  color: string,
 }
 
 export const teams: TeamInfo[] = [
-  { id: "red", name: "Červení" },
-  { id: "blue", name: "Modří" }
+  { id: "red", name: "Červení", color: "#a00" },
+  { id: "blue", name: "Modří", color: "#00a" }
 ];

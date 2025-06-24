@@ -1,9 +1,10 @@
 <script lang="ts">
   export let occupied: Record<string, boolean>;
+  export let color: string;
 </script>
 
 <svg viewBox="0 0 860 440" version="1.1">
-  <g class="railway">
+  <g class="railway" style:--color={color}>
     <path d="M 530,110 H 290" class:occupied={occupied["to-nová-ves-left"]} />
     <path
       d="m 300,110 10,-10 v 20 z"
@@ -222,7 +223,7 @@
   }
 
   .occupied {
-    stroke: #0a0;
+    stroke: var(--color);
   }
 
   .text {

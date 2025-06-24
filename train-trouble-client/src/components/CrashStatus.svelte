@@ -1,9 +1,10 @@
 <script lang="ts">
   export let progress: number | null;
+  export let color: string;
 </script>
 
 {#if progress != null}
-  <div class="container">
+  <div class="container" style:--color={color}>
     <div class="headline">Detekována srážka</div>
     <div class="progress">Stav úklidu: <b>{progress} %</b></div>
   </div>
@@ -22,7 +23,7 @@
     justify-content: center;
 
     font-family: "Noto Mono", monospace;
-    color: #f00;
+    color: color-mix(in hsl, var(--color) 80%, white);
     text-align: center;
 
     background-color: #00000044;

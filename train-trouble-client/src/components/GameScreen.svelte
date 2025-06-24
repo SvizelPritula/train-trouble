@@ -1,14 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { connect } from "train-trouble-engine-client";
-  import type { Channel } from "../lib/channels";
+  import type { Channel, Team, Zone } from "../lib/channels";
   import type { Action, Submit } from "../lib/actions";
   import type { View } from "../lib/views";
   import { createToastCollection, toastFromError } from "../lib/toasts";
   import ToastBanner from "./ToastBanner.svelte";
-  import Zone from "./Zone.svelte";
+  import ZoneView from "./Zone.svelte";
 
-  export let channel: Channel;
+  export let zone: Zone;
+  export let team: Team;
 
   let view: View | null = null;
   let connected: boolean = false;
@@ -19,7 +20,7 @@
 
   onMount(() => {
     let connection = connect<Channel, View, Action>(
-      channel,
+      { type: "zone", zone, team },
       (v) => (view = v),
       (c) => (connected = c)
     );
@@ -52,7 +53,7 @@
     <main class="loading">Načítám…</main>
   {:else if view.type == "zone"}
     <main>
-      <Zone {view} {submit} />
+      <ZoneView {view} {submit} />
     </main>
   {/if}
 </div>

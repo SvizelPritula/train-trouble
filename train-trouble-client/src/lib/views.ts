@@ -1,7 +1,13 @@
+import type { Team } from "./channels";
+
 export type View = MapView | ZoneView;
 
 export interface MapView {
   type: "map",
+  teams: Record<Team, TeamMapView>
+}
+
+export interface TeamMapView {
   occupied: Record<string, boolean>,
   crash_cleanup_progress: number | null
 }

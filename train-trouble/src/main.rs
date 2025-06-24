@@ -18,6 +18,7 @@ mod view;
 mod zones;
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, Enum, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
 enum Team {
     Red,
     Blue,

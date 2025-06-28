@@ -96,6 +96,7 @@ impl Game for TrainToubleGame {
                 teams: EnumMap::from_fn(|team| Map {
                     occupied: self.teams[team].railway.occupied(),
                     crash_cleanup_progress: self.teams[team].railway.crash_cleanup_progress(),
+                    balance: self.teams[team].balance,
                 }),
             },
             Channel::Zone { zone, team } => View::Zone(view::zone(team, zone, self)),

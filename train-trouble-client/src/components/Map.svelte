@@ -2,6 +2,7 @@
   export let occupied: Record<string, boolean>;
   export let name: string;
   export let color: string;
+  export let balance: number;
 </script>
 
 <svg viewBox="-30 0 890 440" version="1.1" style:--color={color}>
@@ -204,6 +205,7 @@
     <text x="700" y="250">P2</text>
 
     <text class="team-name" x="0" y="220">{name}</text>
+    <text class="balance" x="625" y="360">{balance.toLocaleString("cs-CZ")} ₸</text>
   </g>
 </svg>
 
@@ -249,5 +251,11 @@
     text-anchor: middle;
     transform: rotate(-90deg);
     transform-origin: attr(x px) attr(y px);
+  }
+
+  .balance {
+    font-size: 16px;
+    text-align: center;
+    text-anchor: middle;
   }
 </style>

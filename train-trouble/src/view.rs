@@ -56,6 +56,7 @@ pub struct RateView {
 pub struct Map {
     pub occupied: EnumMap<TrackId, bool>,
     pub crash_cleanup_progress: Option<u64>,
+    pub balance: i64,
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq, Serialize)]

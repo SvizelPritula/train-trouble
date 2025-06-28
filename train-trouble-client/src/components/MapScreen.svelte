@@ -26,7 +26,12 @@
   {#if view != null}
     {#each teams as { id, name, color } (id)}
       <div class="map">
-        <Map occupied={view.teams[id].occupied} {color} {name} />
+        <Map
+          occupied={view.teams[id].occupied}
+          balance={view.teams[id].balance}
+          {color}
+          {name}
+        />
         <CrashStatus progress={view.teams[id].crash_cleanup_progress} {color} />
       </div>
     {/each}

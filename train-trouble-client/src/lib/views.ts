@@ -9,7 +9,8 @@ export interface MapView {
 
 export interface TeamMapView {
   occupied: Record<string, boolean>,
-  crash_cleanup_progress: number | null
+  crash_cleanup_progress: number | null,
+  balance: number
 }
 
 export interface ZoneView {

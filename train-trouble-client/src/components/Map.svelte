@@ -122,7 +122,7 @@
       class="signal"
     />
     <path
-      d="m 710,260 h 30 l 60,-60 L 800,140 770,110 h -30"
+      d="m 710,260 h 60 l 30,-30 L 800,140 770,110 h -30"
       class:occupied={occupied["to-kolnov-left"]}
     />
     <path

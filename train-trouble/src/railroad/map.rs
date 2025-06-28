@@ -247,6 +247,7 @@ pub enum SignalId {
 pub enum TrainId {
     Pn1,
     Pn2,
+    Pn3,
 }
 
 impl SwitchId {
@@ -287,6 +288,7 @@ impl TrainId {
         match self {
             TrainId::Pn1 => TrackId::NováVesLeftStop,
             TrainId::Pn2 => TrackId::NováVesRightStop,
+            TrainId::Pn3 => TrackId::PředvořanyStop,
         }
     }
 
@@ -294,6 +296,7 @@ impl TrainId {
         match self {
             TrainId::Pn1 => "Pn 1",
             TrainId::Pn2 => "Pn 2",
+            TrainId::Pn3 => "Pn 3",
         }
     }
 }

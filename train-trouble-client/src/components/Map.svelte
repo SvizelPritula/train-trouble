@@ -1,10 +1,11 @@
 <script lang="ts">
   export let occupied: Record<string, boolean>;
+  export let name: string;
   export let color: string;
 </script>
 
-<svg viewBox="0 0 860 440" version="1.1">
-  <g class="railway" style:--color={color}>
+<svg viewBox="-30 0 890 440" version="1.1" style:--color={color}>
+  <g class="railway">
     <path d="M 530,110 H 290" class:occupied={occupied["to-nová-ves-left"]} />
     <path
       d="m 300,110 10,-10 v 20 z"
@@ -201,6 +202,8 @@
     <text x="360" y="423">Da</text>
     <text x="560" y="250">P1</text>
     <text x="700" y="250">P2</text>
+
+    <text class="team-name" x="0" y="220">{name}</text>
   </g>
 </svg>
 
@@ -237,5 +240,14 @@
     font-size: 16px;
     text-align: center;
     text-anchor: middle;
+  }
+
+  .team-name {
+    fill: color-mix(in hsl, var(--color) 80%, white);;
+    font-size: 25px;
+    text-align: center;
+    text-anchor: middle;
+    transform: rotate(-90deg);
+    transform-origin: attr(x px) attr(y px);
   }
 </style>

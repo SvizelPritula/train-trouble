@@ -5,13 +5,13 @@ Na každém z nich najdete QR kód, který obsahuje URL webové stránky,
 přes kterou je možné hru ovládat.
 URL adresy jsou následující:
 
-| Nádraží             | URL                                     |
-| ------------------- | --------------------------------------- |
-| Nová Ves nad Spálou | http://localhost:8000/#nova-ves         |
-| Kolnov              | http://localhost:8000/#kolnov           |
-| Horní Mechoklaty    | http://localhost:8000/#horni-mechoklaty |
-| Dolní Mechoklaty    | http://localhost:8000/#dolni-mechoklaty |
-| Předvořany          | http://localhost:8000/#predvorany       |
+| Nádraží             | URL                               |
+| ------------------- | --------------------------------- |
+| Nová Ves nad Spálou | http://localhost:8000/#nova-ves   |
+| Kolnov              | http://localhost:8000/#kolnov     |
+| Horní Mechoklaty    | http://localhost:8000/#horni      |
+| Dolní Mechoklaty    | http://localhost:8000/#dolni      |
+| Předvořany          | http://localhost:8000/#predvorany |
 
 Dále existuje základna, ve které projektor promítá živou mapu železnice,
 nacházející se na adrese: http://localhost:8000/#map

@@ -20,8 +20,8 @@ export const hashToRoute: Record<string, Route> = {
   "#map": { type: "map" },
   "#nova-ves": { type: "zone", zone: "nová-ves" },
   "#kolnov": { type: "zone", zone: "kolnov" },
-  "#horni-mechoklaty": { type: "zone", zone: "horní-mechoklaty" },
-  "#dolni-mechoklaty": { type: "zone", zone: "dolní-mechoklaty" },
+  "#horni": { type: "zone", zone: "horní-mechoklaty" },
+  "#dolni": { type: "zone", zone: "dolní-mechoklaty" },
   "#predvorany": { type: "zone", zone: "předvořany" },
 };
 

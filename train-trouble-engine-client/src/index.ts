@@ -41,7 +41,6 @@ export function connect<Channel, View, Action>(
   let stop = reconnect(retry => {
     let socket = new WebSocket(new URL(path, window.location.href));
     currentSocket = socket;
-    onConnectionChange(true);
 
     let watchdog = createWatchdog(() => {
       socket.send(JSON.stringify({ type: "ping" } as OutgoingMessage<Channel, Action>));
@@ -49,6 +48,7 @@ export function connect<Channel, View, Action>(
 
     socket.addEventListener("open", () => {
       socket.send(JSON.stringify({ type: "login", channel } as OutgoingMessage<Channel, Action>));
+      onConnectionChange(true);
     });
 
     socket.addEventListener("message", event => {

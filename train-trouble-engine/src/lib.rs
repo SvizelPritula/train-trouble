@@ -5,7 +5,7 @@ use save::load;
 use serde::{Deserialize, Serialize};
 use server::run_server;
 use state::ServerState;
-use std::{future::Future, hash::Hash, path::PathBuf};
+use std::{fmt::Debug, future::Future, hash::Hash, path::PathBuf};
 use tokio::try_join;
 use tracing::{error, level_filters::LevelFilter};
 use tracing_subscriber::{fmt, layer::SubscriberExt, registry, util::SubscriberInitExt, Layer};
@@ -17,9 +17,9 @@ mod server;
 mod state;
 
 pub trait Game: Serialize + for<'de> Deserialize<'de> + Clone + Default + Send + 'static {
-    type CHANNEL: for<'de> Deserialize<'de> + Clone + Eq + Hash + Send + Sync;
-    type VIEW: Serialize + Clone + Eq + Send + Sync;
-    type ACTION: for<'de> Deserialize<'de> + Clone + Eq + Send + Sync;
+    type CHANNEL: for<'de> Deserialize<'de> + Clone + Eq + Hash + Debug + Send + Sync;
+    type VIEW: Serialize + Clone + Eq + Debug + Send + Sync;
+    type ACTION: for<'de> Deserialize<'de> + Clone + Eq + Debug + Send + Sync;
 
     const TICK_RATE: u64;
 

@@ -9,7 +9,7 @@ use axum::{
     response::Response,
 };
 use tokio::select;
-use tracing::info;
+use tracing::warn;
 
 use super::messages::{IncomingMessage, OutgoingMessage, SocketError};
 use crate::{state::ServerState, ActionResult, Game};
@@ -54,7 +54,7 @@ pub async fn run<G: Game>(state: ServerState<G>, ws: &mut WebSocket) -> Result<(
         ($error: expr) => {{
             let error = $error;
 
-            info!(?error, "Client made a protocol error");
+            warn!("Client made a protocol error: {error:?}");
             socket.send(OutgoingMessage::Error { error }).await?;
 
             return Ok(());
@@ -109,12 +109,12 @@ pub async fn socket<G: Game>(
     ws: WebSocketUpgrade,
 ) -> Response {
     ws.on_failed_upgrade(|error| {
-        info!("WebSocket upgrade failed: {error}");
+        warn!("WebSocket upgrade failed: {error}");
     })
     .on_upgrade(|mut ws| async move {
         let _ = run(state, &mut ws)
             .await
-            .inspect_err(|error| info!("WebSocket closed due to error: {error}"));
+            .inspect_err(|error| warn!("WebSocket closed due to error: {error}"));
 
         let _ = ws.close().await;
     })

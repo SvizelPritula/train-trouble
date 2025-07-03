@@ -2,11 +2,12 @@ use std::{path::PathBuf, time::Duration};
 
 use anyhow::Result;
 use tokio::time::interval;
+use tracing::info;
 
 use crate::{
     save::{spawn_save, SAVE_INTERVAL},
     state::{Action, ServerState},
-    Game,
+    ActionResult, Game,
 };
 
 pub async fn run_loop<G: Game>(
@@ -29,7 +30,12 @@ pub async fn run_loop<G: Game>(
             sender,
         } in actions
         {
+            info!("Played action {action:?} in channel {channel:?}");
             let result = game.act(channel, action);
+
+            if let ActionResult::Error(error) = &result {
+                info!("Action resulted in error: {error}");
+            }
             let _ = sender.send(result);
         }
 
